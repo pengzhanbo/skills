@@ -3,7 +3,6 @@ name: collaborative-doc-writer
 description: 协作式文档创建技能，提供结构化的三阶段工作流程（背景收集、优化结构、读者测试），引导用户完成高质量文档撰写。当用户提及"写文档"、"起草提案"、"创建规范"、"产品需求文档"、"设计文档"、"决策文档"、"征求意见稿"或开始重要写作任务时使用本技能。
 license: MIT
 metadata:
-  author: AI Skills Development Team
   version: "1.0.0"
 ---
 
