@@ -1,529 +1,529 @@
 ---
 name: collaborative-doc-writer
-description: 协作式文档创建技能，提供结构化的三阶段工作流程（背景收集、优化结构、读者测试），引导用户完成高质量文档撰写。当用户提及"写文档"、"起草提案"、"创建规范"、"产品需求文档"、"设计文档"、"决策文档"、"征求意见稿"或开始重要写作任务时使用本技能。
+description: Collaborative document creation skill that provides a structured three-phase workflow (background collection, structure optimization, reader testing) to guide users through high-quality document writing. Use this skill when users mention "write documentation", "draft proposal", "create specification", "product requirements document", "design document", "decision document", "request for comments", or start an important writing task.
 license: MIT
 metadata:
   version: "1.0.0"
 ---
 
-# 协作式文档创建技能
+# Collaborative Document Creation Skill
 
-本技能提供了一套结构化的工作流程，引导用户完成协作式文档创建。作为主动引导者，带领用户经历三个阶段：背景信息收集、内容优化与结构搭建、以及读者测试。
+This skill provides a structured workflow to guide users through collaborative document creation. As a proactive guide, it leads users through three phases: background information collection, content optimization and structure building, and reader testing.
 
-## 触发条件
+## Trigger Conditions
 
-当检测到以下情况时，主动激活此技能：
+Activate this skill proactively when the following situations are detected:
 
-- 用户提及撰写文档：比如 "写文档"、"起草提案"、"创建规范"、"撰写文稿"
-- 用户提及特定文档类型：比如"产品需求文档"、"设计文档"、"决策文档"、"征求意见稿"
-- 用户似乎正在开始一项重要的写作任务
+- Users mention writing documents: such as "write documentation", "draft proposal", "create specification", "compose document"
+- Users mention specific document types: such as "product requirements document", "design document", "decision document", "request for comments"
+- Users appear to be starting an important writing task
 
-## 初始提议流程
+## Initial Proposal Process
 
-### 第一步：介绍协作式文档创建方法
+### Step 1: Introduce the Collaborative Document Creation Method
 
-当检测到触发条件时，首先向用户说明：
+When trigger conditions are detected, first explain to the user:
 
-**协作式文档创建流程**
+**Collaborative Document Creation Process**
 
-我将引导您通过三个阶段完成文档创建：
+I will guide you through three phases to complete document creation:
 
-1. **背景收集阶段**：您提供所有相关背景信息，同时我会提出澄清性问题
-2. **优化与结构阶段**：通过头脑风暴和编辑迭代构建每个部分
-3. **读者测试阶段**：使用全新的Agent（无背景信息）测试文档，在他人阅读前发现盲点
+1. **Background Collection Phase**: You provide all relevant background information while I ask clarifying questions
+2. **Optimization and Structure Phase**: Build each section through brainstorming and editing iterations
+3. **Reader Testing Phase**: Use a fresh Agent (without background information) to test the document and discover blind spots before others read it
 
-这种方法有助于确保文档在被他人阅读时（包括粘贴至Agent时）效果良好。
+This approach helps ensure documents work well when read by others (including when pasted into an Agent).
 
-### 第二步：询问用户偏好
+### Step 2: Ask User Preferences
 
-使用 AskUserQuestion 工具询问用户：
+Use the AskUserQuestion tool to ask the user:
 
-**问题**：您希望采用此协作式流程，还是偏好自由创作？
+**Question**: Would you like to use this collaborative process, or do you prefer free-form creation?
 
-**选项**：
-- **协作式流程（推荐）**：通过三阶段引导完成高质量文档
-- **自由创作**：直接开始撰写，无需结构化引导
+**Options**:
+- **Collaborative Process (Recommended)**: Complete high-quality documents through three-phase guidance
+- **Free-form Creation**: Start writing directly without structured guidance
 
-### 第三步：根据用户选择执行
+### Step 3: Execute Based on User Choice
 
-- **若用户接受**：进入第一阶段 - 背景收集
-- **若用户拒绝**：切换到自由创作模式，直接帮助用户撰写文档
-
----
-
-## 阶段一：背景信息收集
-
-### 目标
-
-全面收集文档所需的背景信息，确保后续写作有充分的上下文支撑。
-
-### 执行步骤
-
-#### 1.1 初始信息收集
-
-主动询问以下核心问题：
-
-**文档基本信息**
-- 这份文档的主要目的是什么？
-- 目标读者是谁？他们的背景和期望是什么？
-- 文档的使用场景是什么？（内部决策、对外沟通、存档记录等）
-
-**内容范围**
-- 文档需要覆盖哪些主题？
-- 有哪些关键信息必须包含？
-- 是否有特定的格式要求或模板？
-
-**上下文背景**
-- 是否有相关的现有文档或参考资料？
-- 是否有特定的约束条件（时间、资源、政策等）？
-- 是否有利益相关者的特定需求？
-
-#### 1.2 澄清性问题
-
-根据用户提供的信息，提出针对性的澄清性问题：
-
-- 对于模糊的表述，要求具体说明
-- 对于可能遗漏的重要信息，主动询问
-- 对于相互矛盾的信息，请求澄清
-
-#### 1.3 信息整理与确认
-
-将收集到的信息整理成结构化摘要，并请用户确认：
-
-```markdown
-## 文档背景信息摘要
-
-### 基本信息
-- **文档目的**：[目的描述]
-- **目标读者**：[读者群体]
-- **使用场景**：[场景描述]
-
-### 内容范围
-- **主要主题**：[主题列表]
-- **关键信息**：[信息要点]
-- **格式要求**：[格式说明]
-
-### 上下文
-- **相关文档**：[文档列表]
-- **约束条件**：[约束说明]
-- **利益相关者需求**：[需求描述]
-
-### 待确认事项
-- [ ] 事项1
-- [ ] 事项2
-```
-
-### 完成标准
-
-当满足以下条件时，进入下一阶段：
-
-- 所有关键信息已收集
-- 用户确认背景信息摘要准确无误
-- 没有重大遗漏或模糊不清的内容
+- **If user accepts**: Enter Phase 1 - Background Collection
+- **If user declines**: Switch to free-form creation mode and help user write documents directly
 
 ---
 
-## 阶段二：内容优化与结构搭建
+## Phase 1: Background Information Collection
 
-### 目标
+### Objective
 
-通过迭代式写作和优化，构建清晰、完整、有说服力的文档内容。
+Comprehensively collect background information needed for the document, ensuring subsequent writing has sufficient contextual support.
 
-### 执行步骤
+### Execution Steps
 
-#### 2.1 文档结构规划
+#### 1.1 Initial Information Collection
 
-基于收集的背景信息，提出文档结构建议：
+Proactively ask the following core questions:
 
-**标准文档结构模板**
+**Document Basic Information**
+- What is the main purpose of this document?
+- Who are the target readers? What are their backgrounds and expectations?
+- What is the usage scenario of the document? (Internal decision-making, external communication, archival records, etc.)
 
-```markdown
-# [文档标题]
+**Content Scope**
+- What topics does the document need to cover?
+- What key information must be included?
+- Are there specific format requirements or templates?
 
-## 执行摘要
-[简要概述文档核心内容，适合快速阅读]
+**Contextual Background**
+- Are there related existing documents or reference materials?
+- Are there specific constraints (time, resources, policies, etc.)?
+- Are there specific needs from stakeholders?
 
-## 背景
-[说明文档产生的背景和必要性]
+#### 1.2 Clarifying Questions
 
-## 目标与范围
-[明确文档要达成的目标和适用范围]
+Based on information provided by the user, ask targeted clarifying questions:
 
-## 核心内容
-[根据文档类型调整此部分]
+- For vague expressions, ask for specifics
+- For potentially missing important information, proactively ask
+- For contradictory information, request clarification
 
-### [子主题1]
-### [子主题2]
-### [子主题3]
+#### 1.3 Information Organization and Confirmation
 
-## 实施计划
-[具体的行动步骤和时间安排]
-
-## 风险与应对
-[潜在风险及应对策略]
-
-## 附录
-[补充材料、参考资料等]
-```
-
-根据文档类型调整结构：
-
-- **产品需求文档**：增加用户故事、功能规格、验收标准
-- **设计文档**：增加设计方案、技术选型、实现细节
-- **决策文档**：增加决策选项、影响分析、实施路径
-- **提案文档**：增加问题陈述、解决方案、预期收益
-
-#### 2.2 分段式写作
-
-采用迭代式写作方法：
-
-**步骤1：逐段撰写**
-- 按照文档结构，逐段撰写内容
-- 每完成一个主要部分，暂停并请用户反馈
-- 根据反馈调整和优化内容
-
-**步骤2：头脑风暴**
-- 对于关键章节，使用头脑风暴技术
-- 提出多个备选方案或表述方式
-- 与用户讨论选择最佳方案
-
-**步骤3：编辑迭代**
-- 对已完成的内容进行多轮编辑
-- 关注逻辑连贯性、表述清晰度、内容完整性
-- 确保文档风格一致
-
-#### 2.3 质量检查点
-
-在每个主要部分完成后，进行质量检查：
-
-**内容质量**
-- [ ] 信息是否准确完整？
-- [ ] 论述是否有逻辑性？
-- [ ] 是否有遗漏的重要内容？
-
-**表达质量**
-- [ ] 语言是否清晰易懂？
-- [ ] 是否有歧义或模糊表述？
-- [ ] 专业术语是否使用得当？
-
-**结构质量**
-- [ ] 章节安排是否合理？
-- [ ] 是否有重复或冗余内容？
-- [ ] 逻辑流程是否顺畅？
-
-#### 2.4 用户确认
-
-完成初稿后，请用户确认：
+Organize collected information into a structured summary and ask user to confirm:
 
 ```markdown
-## 文档初稿已完成
+## Document Background Information Summary
 
-已完成以下部分：
-- [ ] 执行摘要
-- [ ] 背景
-- [ ] 目标与范围
-- [ ] 核心内容（X个子主题）
-- [ ] 实施计划
-- [ ] 风险与应对
+### Basic Information
+- **Document Purpose**: [Purpose description]
+- **Target Readers**: [Reader group]
+- **Usage Scenario**: [Scenario description]
 
-请审阅初稿并提供反馈：
-1. 内容是否完整？
-2. 表述是否清晰？
-3. 是否需要调整结构？
-4. 是否有遗漏的重要信息？
+### Content Scope
+- **Main Topics**: [Topic list]
+- **Key Information**: [Information points]
+- **Format Requirements**: [Format description]
+
+### Context
+- **Related Documents**: [Document list]
+- **Constraints**: [Constraint description]
+- **Stakeholder Needs**: [Needs description]
+
+### Items to Confirm
+- [ ] Item 1
+- [ ] Item 2
 ```
 
-### 完成标准
+### Completion Criteria
 
-当满足以下条件时，进入下一阶段：
+Enter the next phase when the following conditions are met:
 
-- 文档内容完整，覆盖所有必要主题
-- 用户对初稿满意，无重大修改需求
-- 文档逻辑清晰，表述准确
+- All key information has been collected
+- User confirms the background information summary is accurate
+- No major omissions or unclear content
 
 ---
 
-## 阶段三：读者测试
+## Phase 2: Content Optimization and Structure Building
 
-### 目标
+### Objective
 
-使用全新的视角测试文档的可读性和有效性，发现潜在的盲点和问题。
+Build clear, complete, and persuasive document content through iterative writing and optimization.
 
-### 执行步骤
+### Execution Steps
 
-#### 3.1 测试准备
+#### 2.1 Document Structure Planning
 
-向用户说明测试目的和方法：
+Based on collected background information, propose document structure suggestions:
 
-**读者测试说明**
-
-现在我们将进行读者测试。我会启动一个新的Agent会话，该会话没有我们之前的对话背景，完全模拟一个首次阅读此文档的读者。
-
-测试目标：
-- 验证文档是否易于理解
-- 发现可能存在的歧义或模糊表述
-- 识别遗漏的重要信息
-- 评估文档的说服力和完整性
-
-#### 3.2 执行测试
-
-**测试方法1：理解度测试**
-
-启动新的Agent会话，提供文档内容，并询问：
-
-```
-请阅读以下文档，然后回答：
-
-1. 这份文档的主要目的是什么？
-2. 文档的核心观点是什么？
-3. 你认为目标读者能理解文档内容吗？
-4. 有哪些部分让你感到困惑？
-5. 你认为文档是否遗漏了重要信息？
-6. 如果你是目标读者，这份文档能满足你的需求吗？
-
-[文档内容]
-```
-
-**测试方法2：场景模拟测试**
-
-根据文档类型，模拟真实使用场景：
-
-- **产品需求文档**：模拟开发团队阅读并提取需求
-- **设计文档**：模拟技术评审会议讨论
-- **决策文档**：模拟决策会议讨论
-- **提案文档**：模拟审批流程
-
-#### 3.3 问题识别与修复
-
-根据测试结果，识别问题并修复：
-
-**常见问题类型**
-
-1. **理解障碍**
-   - 专业术语未解释
-   - 逻辑跳跃
-   - 背景信息不足
-
-2. **信息遗漏**
-   - 关键细节缺失
-   - 前置知识假设
-   - 上下文不完整
-
-3. **表述问题**
-   - 歧义表述
-   - 冗余内容
-   - 结构混乱
-
-**修复流程**
+**Standard Document Structure Template**
 
 ```markdown
-## 测试发现的问题
+# [Document Title]
 
-### 问题1：[问题描述]
-- **影响**：[对读者的影响]
-- **位置**：[文档位置]
-- **修复建议**：[具体修复方案]
+## Executive Summary
+[Brief overview of core document content, suitable for quick reading]
 
-### 问题2：[问题描述]
+## Background
+[Explain the background and necessity of the document]
+
+## Objectives and Scope
+[Clarify the goals to be achieved and applicable scope]
+
+## Core Content
+[Adjust this section based on document type]
+
+### [Subtopic 1]
+### [Subtopic 2]
+### [Subtopic 3]
+
+## Implementation Plan
+[Specific action steps and timeline]
+
+## Risks and Mitigation
+[Potential risks and response strategies]
+
+## Appendix
+[Supplementary materials, references, etc.]
+```
+
+Adjust structure based on document type:
+
+- **Product Requirements Document**: Add user stories, functional specifications, acceptance criteria
+- **Design Document**: Add design solutions, technology selection, implementation details
+- **Decision Document**: Add decision options, impact analysis, implementation path
+- **Proposal Document**: Add problem statement, solution, expected benefits
+
+#### 2.2 Segment-by-Segment Writing
+
+Use iterative writing method:
+
+**Step 1: Write Segment by Segment**
+- Write content segment by segment according to document structure
+- After completing each major section, pause and ask for user feedback
+- Adjust and optimize content based on feedback
+
+**Step 2: Brainstorming**
+- For key chapters, use brainstorming techniques
+- Propose multiple alternative solutions or expression methods
+- Discuss with user to select the best solution
+
+**Step 3: Editing Iteration**
+- Conduct multiple rounds of editing on completed content
+- Focus on logical coherence, expression clarity, content completeness
+- Ensure consistent document style
+
+#### 2.3 Quality Checkpoints
+
+After completing each major section, conduct quality checks:
+
+**Content Quality**
+- [ ] Is the information accurate and complete?
+- [ ] Is the argumentation logical?
+- [ ] Is there any missing important content?
+
+**Expression Quality**
+- [ ] Is the language clear and easy to understand?
+- [ ] Are there ambiguities or vague expressions?
+- [ ] Are technical terms used appropriately?
+
+**Structure Quality**
+- [ ] Is the chapter arrangement reasonable?
+- [ ] Is there duplicate or redundant content?
+- [ ] Is the logical flow smooth?
+
+#### 2.4 User Confirmation
+
+After completing the draft, ask user to confirm:
+
+```markdown
+## Document Draft Completed
+
+The following sections have been completed:
+- [ ] Executive Summary
+- [ ] Background
+- [ ] Objectives and Scope
+- [ ] Core Content (X subtopics)
+- [ ] Implementation Plan
+- [ ] Risks and Mitigation
+
+Please review the draft and provide feedback:
+1. Is the content complete?
+2. Is the expression clear?
+3. Does the structure need adjustment?
+4. Is there any missing important information?
+```
+
+### Completion Criteria
+
+Enter the next phase when the following conditions are met:
+
+- Document content is complete, covering all necessary topics
+- User is satisfied with the draft, no major revision needs
+- Document logic is clear, expression is accurate
+
+---
+
+## Phase 3: Reader Testing
+
+### Objective
+
+Test document readability and effectiveness using a fresh perspective to discover potential blind spots and issues.
+
+### Execution Steps
+
+#### 3.1 Test Preparation
+
+Explain test purpose and method to the user:
+
+**Reader Testing Instructions**
+
+Now we will conduct reader testing. I will start a new Agent session that has no background from our previous conversation, completely simulating a reader encountering this document for the first time.
+
+Test objectives:
+- Verify if the document is easy to understand
+- Discover possible ambiguities or vague expressions
+- Identify missing important information
+- Evaluate document persuasiveness and completeness
+
+#### 3.2 Execute Testing
+
+**Test Method 1: Comprehension Test**
+
+Start a new Agent session, provide document content, and ask:
+
+```
+Please read the following document, then answer:
+
+1. What is the main purpose of this document?
+2. What are the core points of the document?
+3. Do you think the target readers can understand the document content?
+4. Which parts confuse you?
+5. Do you think the document is missing important information?
+6. If you were the target reader, would this document meet your needs?
+
+[Document content]
+```
+
+**Test Method 2: Scenario Simulation Test**
+
+Based on document type, simulate real usage scenarios:
+
+- **Product Requirements Document**: Simulate development team reading and extracting requirements
+- **Design Document**: Simulate technical review meeting discussion
+- **Decision Document**: Simulate decision meeting discussion
+- **Proposal Document**: Simulate approval process
+
+#### 3.3 Problem Identification and Fixing
+
+Based on test results, identify problems and fix them:
+
+**Common Problem Types**
+
+1. **Understanding Barriers**
+   - Technical terms not explained
+   - Logical jumps
+   - Insufficient background information
+
+2. **Information Omissions**
+   - Missing key details
+   - Assumed prerequisite knowledge
+   - Incomplete context
+
+3. **Expression Issues**
+   - Ambiguous expressions
+   - Redundant content
+   - Disorganized structure
+
+**Fix Process**
+
+```markdown
+## Problems Found in Testing
+
+### Problem 1: [Problem description]
+- **Impact**: [Impact on readers]
+- **Location**: [Document location]
+- **Fix Suggestion**: [Specific fix plan]
+
+### Problem 2: [Problem description]
 ...
 
-## 修复计划
+## Fix Plan
 
-1. [ ] 修复问题1
-2. [ ] 修复问题2
-3. [ ] 重新测试修复后的内容
+1. [ ] Fix problem 1
+2. [ ] Fix problem 2
+3. [ ] Re-test fixed content
 ```
 
-#### 3.4 最终确认
+#### 3.4 Final Confirmation
 
-完成所有修复后，进行最终确认：
+After completing all fixes, conduct final confirmation:
 
 ```markdown
-## 文档已完成
+## Document Completed
 
-经过三阶段协作式创建，文档已准备就绪：
+After three-phase collaborative creation, the document is ready:
 
-✅ 背景信息收集完整
-✅ 内容优化与结构搭建完成
-✅ 读者测试通过
+✅ Background information collection complete
+✅ Content optimization and structure building complete
+✅ Reader testing passed
 
-文档质量保证：
-- 信息完整准确
-- 表述清晰易懂
-- 逻辑连贯合理
-- 读者测试验证通过
+Document quality assurance:
+- Information is complete and accurate
+- Expression is clear and easy to understand
+- Logic is coherent and reasonable
+- Reader testing verification passed
 
-文档已保存至：[文件路径]
+Document saved to: [File path]
 ```
 
-### 完成标准
+### Completion Criteria
 
-当满足以下条件时，文档创建流程完成：
+Document creation process is complete when the following conditions are met:
 
-- 读者测试未发现重大问题
-- 所有识别的问题已修复
-- 用户对最终文档满意
+- Reader testing found no major issues
+- All identified issues have been fixed
+- User is satisfied with the final document
 
 ---
 
-## 特殊场景处理
+## Special Scenario Handling
 
-### 场景1：用户中途改变需求
+### Scenario 1: User Changes Requirements Midway
 
-如果用户在写作过程中改变需求：
+If user changes requirements during writing:
 
-1. 暂停当前工作
-2. 重新收集背景信息（回到阶段一）
-3. 评估已完成内容的可复用性
-4. 调整文档结构和内容
-5. 继续协作流程
+1. Pause current work
+2. Re-collect background information (return to Phase 1)
+3. Evaluate reusability of completed content
+4. Adjust document structure and content
+5. Continue collaborative process
 
-### 场景2：文档类型不明确
+### Scenario 2: Document Type Unclear
 
-如果用户未明确文档类型：
+If user doesn't specify document type:
 
-1. 询问文档的主要用途
-2. 提供常见文档类型选项
-3. 根据用户选择确定文档类型
-4. 应用相应的模板和结构
+1. Ask about the main purpose of the document
+2. Provide common document type options
+3. Determine document type based on user selection
+4. Apply corresponding templates and structure
 
-### 场景3：时间紧迫
+### Scenario 3: Time Pressure
 
-如果用户需要快速完成文档：
+If user needs to complete document quickly:
 
-1. 询问最关键的截止时间
-2. 简化流程，跳过非必要步骤
-3. 优先完成核心内容
-4. 标记待完善部分，后续优化
+1. Ask about the most critical deadline
+2. Simplify process, skip non-essential steps
+3. Prioritize completing core content
+4. Mark sections to be refined for later optimization
 
-### 场景4：多人协作
+### Scenario 4: Multi-person Collaboration
 
-如果文档需要多人协作：
+If document requires multi-person collaboration:
 
-1. 明确各方的角色和职责
-2. 建立协作流程和沟通机制
-3. 分配写作任务
-4. 设置审阅和整合节点
-
----
-
-## 最佳实践
-
-### 写作原则
-
-1. **读者导向**：始终考虑目标读者的需求和背景
-2. **清晰简洁**：避免冗余，使用简洁明了的语言
-3. **逻辑连贯**：确保内容有清晰的逻辑流程
-4. **证据支撑**：重要论断应有数据或事实支撑
-
-### 协作技巧
-
-1. **主动引导**：主动提出问题和建议，而非被动等待
-2. **迭代优化**：通过多轮迭代不断完善内容
-3. **及时反馈**：每个阶段都请用户确认和反馈
-4. **灵活调整**：根据用户反馈灵活调整方法和节奏
-
-### 质量保证
-
-1. **完整性检查**：确保所有必要信息都已包含
-2. **一致性检查**：确保术语、格式、风格一致
-3. **准确性检查**：核实数据、事实、引用的准确性
-4. **可读性检查**：确保文档易于阅读和理解
+1. Clarify roles and responsibilities of each party
+2. Establish collaboration process and communication mechanisms
+3. Assign writing tasks
+4. Set review and integration checkpoints
 
 ---
 
-## 工具与资源
+## Best Practices
 
-### 文档模板库
+### Writing Principles
 
-根据文档类型，提供相应的模板：
+1. **Reader-Oriented**: Always consider target readers' needs and background
+2. **Clear and Concise**: Avoid redundancy, use simple and clear language
+3. **Logically Coherent**: Ensure content has a clear logical flow
+4. **Evidence-Based**: Important assertions should be supported by data or facts
 
-- 产品需求文档模板
-- 技术设计文档模板
-- 决策记录文档模板
-- 项目提案文档模板
-- 会议纪要模板
+### Collaboration Techniques
 
-### 写作辅助工具
+1. **Proactive Guidance**: Proactively ask questions and make suggestions rather than passively waiting
+2. **Iterative Optimization**: Continuously improve content through multiple iterations
+3. **Timely Feedback**: Ask for user confirmation and feedback at each phase
+4. **Flexible Adjustment**: Adjust methods and pace flexibly based on user feedback
 
-- 逻辑结构检查清单
-- 表述优化建议
-- 专业术语词典
-- 格式规范指南
+### Quality Assurance
 
-### 质量检查工具
-
-- 完整性检查表
-- 可读性评分工具
-- 一致性检查工具
-- 读者测试问卷模板
+1. **Completeness Check**: Ensure all necessary information is included
+2. **Consistency Check**: Ensure terminology, format, and style are consistent
+3. **Accuracy Check**: Verify accuracy of data, facts, and citations
+4. **Readability Check**: Ensure document is easy to read and understand
 
 ---
 
-## 示例对话流程
+## Tools and Resources
 
-### 示例1：产品需求文档创建
+### Document Template Library
+
+Provide corresponding templates based on document type:
+
+- Product Requirements Document Template
+- Technical Design Document Template
+- Decision Record Document Template
+- Project Proposal Document Template
+- Meeting Minutes Template
+
+### Writing Assistance Tools
+
+- Logical structure checklist
+- Expression optimization suggestions
+- Technical terminology dictionary
+- Format specification guide
+
+### Quality Check Tools
+
+- Completeness checklist
+- Readability scoring tool
+- Consistency check tool
+- Reader test questionnaire template
+
+---
+
+## Example Dialogue Flow
+
+### Example 1: Product Requirements Document Creation
 
 ```
-用户：我需要写一份产品需求文档
+User: I need to write a product requirements document
 
-Agent：我将引导您通过协作式文档创建流程完成这份产品需求文档。
+Agent: I will guide you through the collaborative document creation process to complete this product requirements document.
 
-这个流程包含三个阶段：
-1. 背景收集：收集产品背景、用户需求等信息
-2. 优化与结构：构建PRD的各个章节
-3. 读者测试：模拟开发团队阅读，发现潜在问题
+This process includes three phases:
+1. Background Collection: Collect product background, user needs, and other information
+2. Optimization and Structure: Build each section of the PRD
+3. Reader Testing: Simulate development team reading to discover potential issues
 
-您希望采用此协作式流程，还是偏好自由创作？
+Would you like to use this collaborative process, or do you prefer free-form creation?
 
-用户：采用协作式流程
+User: Use the collaborative process
 
-Agent：好的，让我们开始第一阶段：背景信息收集。
+Agent: Great, let's start Phase 1: Background Information Collection.
 
-首先，请告诉我：
-1. 这个产品的主要功能是什么？
-2. 目标用户是谁？
-3. 解决什么问题？
+First, please tell me:
+1. What is the main function of this product?
+2. Who are the target users?
+3. What problem does it solve?
 
-用户：这是一个任务管理工具，面向项目经理，解决团队协作混乱的问题...
+User: This is a task management tool, targeting project managers, solving the problem of chaotic team collaboration...
 
-[继续收集信息并进入下一阶段]
+[Continue collecting information and proceed to next phase]
 ```
 
-### 示例2：技术设计文档创建
+### Example 2: Technical Design Document Creation
 
 ```
-用户：帮我起草一份系统架构设计文档
+User: Help me draft a system architecture design document
 
-Agent：我将使用协作式文档创建流程帮助您完成这份架构设计文档。
+Agent: I will use the collaborative document creation process to help you complete this architecture design document.
 
-这个流程包含三个阶段：
-1. 背景收集：了解系统背景、技术约束等
-2. 优化与结构：构建设计文档的各个部分
-3. 读者测试：模拟技术评审，验证文档质量
+This process includes three phases:
+1. Background Collection: Understand system background, technical constraints, etc.
+2. Optimization and Structure: Build each part of the design document
+3. Reader Testing: Simulate technical review to verify document quality
 
-您希望采用此协作式流程，还是偏好自由创作？
+Would you like to use this collaborative process, or do you prefer free-form creation?
 
-用户：协作式流程
+User: Collaborative process
 
-Agent：很好，让我们从背景收集开始。
+Agent: Excellent, let's start with background collection.
 
-请告诉我：
-1. 这个系统的核心功能是什么？
-2. 有哪些技术约束或要求？
-3. 预期的系统规模和性能要求？
+Please tell me:
+1. What is the core function of this system?
+2. What are the technical constraints or requirements?
+3. What are the expected system scale and performance requirements?
 
-用户：这是一个电商系统，需要支持高并发...
+User: This is an e-commerce system that needs to support high concurrency...
 
-[继续协作流程]
+[Continue collaborative process]
 ```
 
 ---
 
-## 注意事项
+## Notes
 
-1. **保持主动性**：作为引导者，应主动提出问题和建议
-2. **关注用户体验**：确保流程顺畅，避免让用户感到繁琐
-3. **灵活应变**：根据具体情况调整流程和节奏
-4. **质量优先**：宁可多花时间确保质量，不要急于完成
-5. **尊重用户**：最终决策权在用户，尊重用户的选择和偏好
+1. **Stay Proactive**: As a guide, proactively ask questions and make suggestions
+2. **Focus on User Experience**: Ensure smooth process, avoid making users feel cumbersome
+3. **Be Flexible**: Adjust process and pace based on specific situations
+4. **Quality First**: Better to spend more time ensuring quality than to rush completion
+5. **Respect Users**: Final decision-making power lies with the user, respect user choices and preferences

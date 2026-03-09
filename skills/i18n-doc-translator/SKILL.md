@@ -1,62 +1,62 @@
 ---
 name: i18n-doc-translator
-description: 项目多语言文档专业翻译官，自动检测项目配置、同步目录结构、执行高质量翻译并验证完整性。当用户提及"翻译文档"、"多语言文档"、"国际化文档"、"i18n"、"文档本地化"、"translate documentation"或需要将文档翻译到其他语言时使用本技能。
+description: Professional multilingual documentation translator for projects, automatically detecting project configuration, synchronizing directory structure, executing high-quality translation, and verifying completeness. Use this skill when users mention "translate documentation", "multilingual documentation", "i18n documentation", "i18n", "document localization", "translate documentation", or need to translate documents to other languages.
 license: MIT
 metadata:
   version: "1.0.0"
 ---
 
-# 多语言文档翻译技能
+# Multilingual Documentation Translation Skill
 
-本技能提供项目多语言文档的专业翻译能力，自动检测项目配置、同步目录结构、执行高质量翻译并验证完整性。
+This skill provides professional multilingual documentation translation capabilities for projects, automatically detecting project configuration, synchronizing directory structure, executing high-quality translation, and verifying completeness.
 
-## 触发条件
+## Trigger Conditions
 
-当检测到以下情况时，主动激活此技能：
+Activate this skill proactively when the following situations are detected:
 
-- 用户提及翻译文档："翻译文档"、"多语言文档"、"国际化文档"、"i18n"、"文档本地化"
-- 用户提及具体翻译需求："把文档翻译成英语"、"生成日语版本文档"
-- 用户提及翻译相关操作："更新翻译"、"同步多语言文档"
-- 英文触发词："translate documentation"、"i18n docs"、"localize docs"
+- Users mention translating documents: "translate documentation", "multilingual documentation", "i18n documentation", "i18n", "document localization"
+- Users mention specific translation needs: "translate documents to English", "generate Japanese version documentation"
+- Users mention translation-related operations: "update translation", "sync multilingual documentation"
+- English trigger words: "translate documentation", "i18n docs", "localize docs"
 
 ---
 
-## 第一阶段：项目配置检测
+## Phase 1: Project Configuration Detection
 
-在执行翻译前，需全面检测项目的文档配置和结构。
+Before executing translation, comprehensively detect the project's documentation configuration and structure.
 
-### 1.1 检测静态站点生成器
+### 1.1 Detect Static Site Generator
 
-检查项目使用的文档工具，识别配置文件：
+Check the documentation tool used by the project and identify configuration files:
 
-| 工具 | 配置文件 | 默认语言配置位置 |
-|------|----------|------------------|
-| VitePress | `.vitepress/config.mts` 或 `config.ts` | `locales.root` 或 `defaultLang` |
+| Tool | Configuration File | Default Language Configuration Location |
+|------|-------------------|----------------------------------------|
+| VitePress | `.vitepress/config.mts` or `config.ts` | `locales.root` or `defaultLang` |
 | Hugo | `hugo.toml` / `config.toml` | `defaultContentLanguage` |
-| Jekyll | `_config.yml` | `lang` 或 `defaults.lang` |
+| Jekyll | `_config.yml` | `lang` or `defaults.lang` |
 | Hexo | `_config.yml` | `language` |
 | Docusaurus | `docusaurus.config.js` | `i18n.defaultLocale` |
-| Next.js Nextra | `next.config.js` 或 theme config | `i18n.defaultLocale` |
+| Next.js Nextra | `next.config.js` or theme config | `i18n.defaultLocale` |
 
-**检测流程**：
+**Detection Process**:
 
-1. 检查项目根目录是否存在上述配置文件
-2. 解析配置文件，提取默认语言设置
-3. 识别文档目录结构模式
+1. Check if the above configuration files exist in the project root directory
+2. Parse configuration files and extract default language settings
+3. Identify documentation directory structure pattern
 
-### 1.2 识别文档目录结构模式
+### 1.2 Identify Documentation Directory Structure Pattern
 
-根据项目配置和现有文档结构，识别多语言目录模式：
+Based on project configuration and existing documentation structure, identify multilingual directory patterns:
 
-**模式一：子目录模式（推荐）**
+**Pattern 1: Subdirectory Pattern (Recommended)**
 
 ```
 docs/
-├── zh/           # 中文文档
+├── zh/           # Chinese documentation
 │   ├── guide/
 │   │   └── getting-started.md
 │   └── index.md
-├── en/           # 英文文档
+├── en/           # English documentation
 │   ├── guide/
 │   │   └── getting-started.md
 │   └── index.md
@@ -64,64 +64,64 @@ docs/
     └── config.mts
 ```
 
-**模式二：根目录模式**
+**Pattern 2: Root Directory Pattern**
 
 ```
 docs/
 ├── guide/
-│   └── getting-started.md    # 默认语言
+│   └── getting-started.md    # Default language
 └── index.md
 en/
 ├── guide/
-│   └── getting-started.md    # 英文翻译
+│   └── getting-started.md    # English translation
 └── index.md
 ```
 
-**模式三：文件名后缀模式**
+**Pattern 3: Filename Suffix Pattern**
 
 ```
 docs/
 ├── guide/
-│   ├── getting-started.md      # 默认语言
-│   ├── getting-started.en.md   # 英文翻译
-│   └── getting-started.ja.md   # 日语翻译
+│   ├── getting-started.md      # Default language
+│   ├── getting-started.en.md   # English translation
+│   └── getting-started.ja.md   # Japanese translation
 └── index.md
 ```
 
-### 1.3 确定默认语言
+### 1.3 Determine Default Language
 
-按以下优先级确定文档的默认语言：
+Determine the default language of documentation in the following priority:
 
-1. 从配置文件中读取默认语言设置
-2. 检查现有文档内容，通过语言特征识别
-3. 如果无法确定，询问用户确认
+1. Read default language settings from configuration file
+2. Check existing documentation content and identify through language features
+3. If unable to determine, ask user for confirmation
 
-### 1.4 确定目标语言
+### 1.4 Determine Target Language
 
-按以下流程确定目标语言：
+Determine target language through the following process:
 
-1. 用户在请求中明确指定目标语言 → 使用指定语言
-2. 从项目配置中读取支持的语言列表 → 确认翻译目标
-3. 无法确定时 → 使用 AskUserQuestion 工具询问用户
+1. User explicitly specifies target language in request → Use specified language
+2. Read supported language list from project configuration → Confirm translation target
+3. Unable to determine → Use AskUserQuestion tool to ask user
 
 ---
 
-## 第二阶段：目录结构同步
+## Phase 2: Directory Structure Synchronization
 
-确保目标语言目录结构与源语言完全一致。
+Ensure target language directory structure is completely consistent with source language.
 
-### 2.1 扫描源文档结构
+### 2.1 Scan Source Documentation Structure
 
-递归扫描默认语言目录，记录所有文档文件：
+Recursively scan default language directory and record all documentation files:
 
 ```markdown
-## 源文档结构
+## Source Documentation Structure
 
-- 默认语言：zh
-- 文档目录：docs/zh
-- 文件总数：15
+- Default Language: zh
+- Documentation Directory: docs/zh
+- Total Files: 15
 
-### 文件列表
+### File List
 1. docs/zh/index.md
 2. docs/zh/guide/getting-started.md
 3. docs/zh/guide/configuration.md
@@ -129,357 +129,357 @@ docs/
 ...
 ```
 
-### 2.2 创建目标目录结构
+### 2.2 Create Target Directory Structure
 
-在目标语言目录中创建与源语言一致的目录结构：
+Create directory structure consistent with source language in target language directory:
 
-**执行步骤**：
+**Execution Steps**:
 
-1. 获取源语言目录下所有文件的相对路径
-2. 在目标语言目录下创建对应的目录结构
-3. 确保目录层级完全一致
+1. Get relative paths of all files under source language directory
+2. Create corresponding directory structure under target language directory
+3. Ensure directory hierarchy is completely consistent
 
-**示例**：
+**Example**:
 
 ```
-源语言：zh，目标语言：en
+Source Language: zh, Target Language: en
 
-源结构：                    目标结构：
-docs/zh/                    docs/en/
-├── guide/                  ├── guide/
-│   └── intro.md    →       │   └── intro.md (待翻译)
-└── api/                    └── api/
-    └── reference.md            └── reference.md (待翻译)
+Source Structure:                    Target Structure:
+docs/zh/                             docs/en/
+├── guide/                           ├── guide/
+│   └── intro.md    →                │   └── intro.md (to be translated)
+└── api/                             └── api/
+    └── reference.md                     └── reference.md (to be translated)
 ```
 
-### 2.3 验证目录结构
+### 2.3 Verify Directory Structure
 
-完成翻译后，验证目录结构完整性：
+After completing translation, verify directory structure completeness:
 
-- 检查所有源文件是否都有对应的目标语言文件
-- 检查目录层级是否一致
-- 报告缺失的文件或目录
+- Check if all source files have corresponding target language files
+- Check if directory hierarchy is consistent
+- Report missing files or directories
 
 ---
 
-## 第三阶段：翻译执行
+## Phase 3: Translation Execution
 
-执行高质量的文档翻译，确保"信、雅、达"的翻译标准。
+Execute high-quality documentation translation, ensuring "faithfulness, expressiveness, and elegance" translation standards.
 
-### 3.1 翻译原则
+### 3.1 Translation Principles
 
-**信（忠实）**
+**Faithfulness**
 
-- 准确传达原文含义，不增减信息
-- 保持技术术语的准确性
-- 保留原文的代码示例、链接、图片等元素
+- Accurately convey original meaning without adding or subtracting information
+- Maintain accuracy of technical terminology
+- Preserve code examples, links, images, and other elements from the original
 
-**雅（优雅）**
+**Expressiveness**
 
-- 使用目标语言的自然表达方式
-- 遵循目标语言的写作习惯
-- 保持文档的专业性和可读性
+- Use natural expression methods of the target language
+- Follow writing conventions of the target language
+- Maintain professionalism and readability of documentation
 
-**达（通顺）**
+**Elegance**
 
-- 确保译文流畅易懂
-- 避免翻译腔和生硬表达
-- 适当调整句式以符合目标语言习惯
+- Ensure translation is fluent and easy to understand
+- Avoid translationese and stiff expressions
+- Appropriately adjust sentence structure to conform to target language conventions
 
-### 3.2 翻译规则
+### 3.2 Translation Rules
 
-**技术术语处理**
+**Technical Terminology Handling**
 
-| 情况 | 处理方式 | 示例 |
-|------|----------|------|
-| 通用技术术语 | 保留英文或使用标准译名 | API → API，算法 → Algorithm |
-| 项目特定术语 | 保持一致性 | 组件名、配置项名称不翻译 |
-| 代码相关 | 完全保留 | 变量名、函数名、命令不翻译 |
-| 链接路径 | 根据情况调整 | 内部链接可能需要调整路径 |
+| Situation | Handling Method | Example |
+|-----------|-----------------|---------|
+| General technical terms | Keep English or use standard translation | API → API, Algorithm → Algorithm |
+| Project-specific terms | Maintain consistency | Component names, configuration item names not translated |
+| Code-related | Completely preserve | Variable names, function names, commands not translated |
+| Link paths | Adjust as needed | Internal links may need path adjustment |
 
-**Markdown 元素处理**
+**Markdown Element Handling**
 
 ```markdown
-# 标题翻译
+# Heading Translation
 ## Heading Translation
 
-正文内容翻译，保持 **加粗** 和 `代码` 格式。
+Body content translation, maintaining **bold** and `code` formatting.
 
-- 列表项翻译
-- 保持列表结构
+- List item translation
+- Maintain list structure
 
-> 引用块翻译
+> Blockquote translation
 
-[链接文本翻译](url-保持不变)
+[Link text translation](url-unchanged)
 
-![图片替代文本翻译](image-path.png)
+![Image alt text translation](image-path.png)
 
-| 表头翻译 | 表头翻译 |
-|----------|----------|
-| 内容翻译 | 内容翻译 |
+| Header Translation | Header Translation |
+|--------------------|--------------------|
+| Content Translation | Content Translation |
 
 ```language
-// 代码块不翻译，但注释可翻译
-const example = "code"; // 示例代码
+// Code blocks not translated, but comments can be translated
+const example = "code"; // Example code
 ```
 
-**Frontmatter 处理**
+**Frontmatter Handling**
 
 ```yaml
 ---
-title: 翻译标题
-description: 翻译描述
-lang: en  # 更新语言标识
+title: Translated Title
+description: Translated Description
+lang: en  # Update language identifier
 ---
 ```
 
-### 3.3 增量翻译策略
+### 3.3 Incremental Translation Strategy
 
-基于文件修改时间进行增量翻译：
+Perform incremental translation based on file modification times:
 
-**检测流程**：
+**Detection Process**:
 
-1. 获取源文件的最后修改时间 `source_mtime`
-2. 获取目标文件的最后修改时间 `target_mtime`
-3. 比较：
-   - `source_mtime > target_mtime` → 需要更新翻译
-   - 目标文件不存在 → 需要新建翻译
-   - `source_mtime <= target_mtime` → 跳过（翻译已是最新）
+1. Get last modification time of source file `source_mtime`
+2. Get last modification time of target file `target_mtime`
+3. Compare:
+   - `source_mtime > target_mtime` → Translation update needed
+   - Target file doesn't exist → New translation needed
+   - `source_mtime <= target_mtime` → Skip (translation is up-to-date)
 
-**执行策略**：
+**Execution Strategy**:
 
 ```markdown
-## 翻译计划
+## Translation Plan
 
-### 需要新建翻译 (3个文件)
+### New Translations Needed (3 files)
 - docs/en/guide/new-feature.md
 - docs/en/api/new-endpoint.md
 - docs/en/changelog.md
 
-### 需要更新翻译 (2个文件)
-- docs/en/index.md (源文件已更新)
-- docs/en/guide/configuration.md (源文件已更新)
+### Translation Updates Needed (2 files)
+- docs/en/index.md (source file updated)
+- docs/en/guide/configuration.md (source file updated)
 
-### 跳过翻译 (10个文件)
-- docs/en/guide/getting-started.md (已是最新)
+### Skip Translation (10 files)
+- docs/en/guide/getting-started.md (already up-to-date)
 - ...
 ```
 
-### 3.4 翻译执行流程
+### 3.4 Translation Execution Process
 
-**单文件翻译流程**：
+**Single File Translation Process**:
 
-1. 读取源文件内容
-2. 解析 Markdown 结构
-3. 逐段翻译内容（保留代码块、链接等）
-4. 更新 frontmatter 中的语言标识
-5. 写入目标文件
-6. 记录翻译日志
+1. Read source file content
+2. Parse Markdown structure
+3. Translate content segment by segment (preserving code blocks, links, etc.)
+4. Update language identifier in frontmatter
+5. Write target file
+6. Record translation log
 
-**批量翻译流程**：
+**Batch Translation Process**:
 
-1. 扫描并分类文件（新建/更新/跳过）
-2. 展示翻译计划，确认用户意图
-3. 按顺序执行翻译
-4. 实时报告进度
-5. 完成后生成翻译报告
+1. Scan and categorize files (new/update/skip)
+2. Display translation plan, confirm user intent
+3. Execute translation in order
+4. Report progress in real-time
+5. Generate translation report after completion
 
 ---
 
-## 第四阶段：翻译验证
+## Phase 4: Translation Verification
 
-完成翻译后，进行全面的质量验证。
+After completing translation, perform comprehensive quality verification.
 
-### 4.1 结构完整性验证
+### 4.1 Structure Completeness Verification
 
-检查目标语言目录结构是否完整：
+Check if target language directory structure is complete:
 
-**验证清单**：
+**Verification Checklist**:
 
-- [ ] 所有源文件都有对应的目标语言文件
-- [ ] 目录层级完全一致
-- [ ] 文件命名规范一致
-- [ ] 没有遗漏的文件
+- [ ] All source files have corresponding target language files
+- [ ] Directory hierarchy is completely consistent
+- [ ] File naming conventions are consistent
+- [ ] No missing files
 
-**验证报告示例**：
+**Verification Report Example**:
 
 ```markdown
-## 结构验证报告
+## Structure Verification Report
 
-### 通过项
-✅ 目录结构一致
-✅ 文件数量匹配 (15/15)
-✅ 文件命名规范正确
+### Passed Items
+✅ Directory structure consistent
+✅ File count matches (15/15)
+✅ File naming conventions correct
 
-### 缺失文件
-❌ docs/en/advanced/performance.md (源文件存在，目标文件缺失)
+### Missing Files
+❌ docs/en/advanced/performance.md (source file exists, target file missing)
 
-### 多余文件
-⚠️ docs/en/deprecated/old-feature.md (源文件已删除，目标文件仍存在)
+### Extra Files
+⚠️ docs/en/deprecated/old-feature.md (source file deleted, target file still exists)
 ```
 
-### 4.2 内容完整性验证
+### 4.2 Content Completeness Verification
 
-检查翻译内容的完整性：
+Check completeness of translated content:
 
-**验证项目**：
+**Verification Items**:
 
-- [ ] 标题数量一致
-- [ ] 段落数量一致
-- [ ] 代码块数量一致
-- [ ] 链接数量一致
-- [ ] 图片数量一致
-- [ ] 表格结构一致
+- [ ] Heading count consistent
+- [ ] Paragraph count consistent
+- [ ] Code block count consistent
+- [ ] Link count consistent
+- [ ] Image count consistent
+- [ ] Table structure consistent
 
-### 4.3 翻译质量检查
+### 4.3 Translation Quality Check
 
-**基础检查**：
+**Basic Checks**:
 
-- 是否有未翻译的段落
-- 是否有翻译错误或歧义
-- 技术术语是否一致
-- 格式是否正确
+- Are there untranslated paragraphs
+- Are there translation errors or ambiguities
+- Is technical terminology consistent
+- Is formatting correct
 
-**术语一致性检查**：
+**Terminology Consistency Check**:
 
-建立术语表，确保同一术语在所有文档中的翻译一致：
+Build a terminology table to ensure the same term is translated consistently across all documents:
 
-| 源术语 | 目标语言翻译 | 备注 |
-|--------|--------------|------|
-| 组件 | Component | 统一使用 |
-| 配置 | Configuration | 统一使用 |
-| 钩子 | Hook | 统一使用 |
+| Source Term | Target Language Translation | Notes |
+|-------------|----------------------------|-------|
+| Component | Component | Unified use |
+| Configuration | Configuration | Unified use |
+| Hook | Hook | Unified use |
 
-### 4.4 链接有效性验证
+### 4.4 Link Validity Verification
 
-检查翻译文档中的链接：
+Check links in translated documents:
 
-- 内部链接：确保目标语言版本的对应文件存在
-- 外部链接：确保链接仍然有效
-- 锚点链接：确保目标标题存在
+- Internal links: Ensure corresponding files exist in target language version
+- External links: Ensure links are still valid
+- Anchor links: Ensure target headings exist
 
 ---
 
-## 第五阶段：报告与交付
+## Phase 5: Reporting and Delivery
 
-生成翻译报告，总结翻译结果。
+Generate translation report summarizing translation results.
 
-### 5.1 翻译报告格式
+### 5.1 Translation Report Format
 
 ```markdown
-# 文档翻译报告
+# Documentation Translation Report
 
-## 概述
-- 源语言：中文 (zh)
-- 目标语言：英语 (en)
-- 翻译时间：2026-03-08 10:30:00
-- 总耗时：5分钟
+## Overview
+- Source Language: Chinese (zh)
+- Target Language: English (en)
+- Translation Time: 2026-03-08 10:30:00
+- Total Duration: 5 minutes
 
-## 统计数据
+## Statistics
 
-| 项目 | 数量 |
-|------|------|
-| 源文件总数 | 15 |
-| 新建翻译 | 3 |
-| 更新翻译 | 2 |
-| 跳过翻译 | 10 |
-| 总翻译字数 | 约 5,000 字 |
+| Item | Count |
+|------|-------|
+| Total Source Files | 15 |
+| New Translations | 3 |
+| Updated Translations | 2 |
+| Skipped Translations | 10 |
+| Total Words Translated | Approximately 5,000 |
 
-## 文件详情
+## File Details
 
-### 新建翻译
+### New Translations
 1. docs/en/guide/new-feature.md
 2. docs/en/api/new-endpoint.md
 3. docs/en/changelog.md
 
-### 更新翻译
+### Updated Translations
 1. docs/en/index.md
 2. docs/en/guide/configuration.md
 
-### 跳过翻译
+### Skipped Translations
 1. docs/en/guide/getting-started.md
 2. docs/en/guide/installation.md
 ...
 
-## 验证结果
+## Verification Results
 
-✅ 结构完整性：通过
-✅ 内容完整性：通过
-✅ 链接有效性：通过
-⚠️ 术语一致性：发现 1 处不一致（已记录）
+✅ Structure Completeness: Passed
+✅ Content Completeness: Passed
+✅ Link Validity: Passed
+⚠️ Terminology Consistency: 1 inconsistency found (recorded)
 
-## 注意事项
-- 建议人工审阅新翻译的内容
-- 部分技术术语可能需要根据上下文调整
+## Notes
+- Recommend manual review of newly translated content
+- Some technical terms may need adjustment based on context
 ```
 
 ---
 
-## 常见场景处理
+## Common Scenario Handling
 
-### 场景一：首次翻译整个项目
-
-```
-用户：把这个项目的文档翻译成英语
-
-Agent：
-1. 检测项目配置：发现使用 VitePress，默认语言为中文
-2. 扫描文档目录：发现 20 个文档文件
-3. 创建目标目录：docs/en/
-4. 确认翻译计划：翻译全部 20 个文件
-5. 执行翻译
-6. 验证完整性
-7. 生成报告
-```
-
-### 场景二：增量更新翻译
+### Scenario 1: First-time Translation of Entire Project
 
 ```
-用户：更新英文文档
+User: Translate this project's documentation to English
 
-Agent：
-1. 检测项目配置
-2. 对比修改时间
-3. 发现 3 个文件需要更新
-4. 展示更新计划
-5. 执行增量翻译
-6. 验证并报告
+Agent:
+1. Detect project configuration: Found using VitePress, default language is Chinese
+2. Scan documentation directory: Found 20 documentation files
+3. Create target directory: docs/en/
+4. Confirm translation plan: Translate all 20 files
+5. Execute translation
+6. Verify completeness
+7. Generate report
 ```
 
-### 场景三：翻译单个文件
+### Scenario 2: Incremental Translation Update
 
 ```
-用户：把 docs/zh/guide/getting-started.md 翻译成日语
+User: Update English documentation
 
-Agent：
-1. 读取源文件
-2. 检查目标目录是否存在
-3. 执行翻译
-4. 写入 docs/ja/guide/getting-started.md
-5. 验证翻译质量
+Agent:
+1. Detect project configuration
+2. Compare modification times
+3. Found 3 files need updating
+4. Display update plan
+5. Execute incremental translation
+6. Verify and report
 ```
 
-### 场景四：添加新语言支持
+### Scenario 3: Translate Single File
 
 ```
-用户：添加日语文档支持
+User: Translate docs/zh/guide/getting-started.md to Japanese
 
-Agent：
-1. 检测现有文档结构
-2. 创建 docs/ja/ 目录
-3. 复制目录结构
-4. 翻译所有文档
-5. 更新项目配置文件（如 VitePress config）
-6. 验证并报告
+Agent:
+1. Read source file
+2. Check if target directory exists
+3. Execute translation
+4. Write to docs/ja/guide/getting-started.md
+5. Verify translation quality
+```
+
+### Scenario 4: Add New Language Support
+
+```
+User: Add Japanese documentation support
+
+Agent:
+1. Detect existing documentation structure
+2. Create docs/ja/ directory
+3. Copy directory structure
+4. Translate all documents
+5. Update project configuration file (e.g., VitePress config)
+6. Verify and report
 ```
 
 ---
 
-## 配置文件更新
+## Configuration File Updates
 
-翻译完成后，根据需要更新项目配置文件。
+After translation is complete, update project configuration files as needed.
 
-### VitePress 配置更新
+### VitePress Configuration Update
 
 ```typescript
 // .vitepress/config.ts
@@ -501,7 +501,7 @@ export default defineConfig({
 })
 ```
 
-### Hugo 配置更新
+### Hugo Configuration Update
 
 ```toml
 # hugo.toml
@@ -517,39 +517,39 @@ languages:
 
 ---
 
-## 质量检查清单
+## Quality Checklist
 
-在完成翻译后，使用以下清单进行自检：
+After completing translation, use the following checklist for self-check:
 
-### 结构检查
-- [ ] 目录结构是否完整一致？
-- [ ] 文件数量是否匹配？
-- [ ] 文件命名是否规范？
+### Structure Check
+- [ ] Is directory structure complete and consistent?
+- [ ] Does file count match?
+- [ ] Is file naming standardized?
 
-### 内容检查
-- [ ] 所有段落是否已翻译？
-- [ ] 代码块是否保留完整？
-- [ ] 链接是否正确？
-- [ ] 图片是否正常显示？
+### Content Check
+- [ ] Are all paragraphs translated?
+- [ ] Are code blocks preserved completely?
+- [ ] Are links correct?
+- [ ] Do images display properly?
 
-### 质量检查
-- [ ] 翻译是否准确？
-- [ ] 表达是否自然流畅？
-- [ ] 术语是否一致？
-- [ ] 格式是否正确？
+### Quality Check
+- [ ] Is translation accurate?
+- [ ] Is expression natural and fluent?
+- [ ] Is terminology consistent?
+- [ ] Is formatting correct?
 
-### 配置检查
-- [ ] 项目配置是否更新？
-- [ ] 语言标识是否正确？
-- [ ] 导航菜单是否更新？
+### Configuration Check
+- [ ] Is project configuration updated?
+- [ ] Are language identifiers correct?
+- [ ] Is navigation menu updated?
 
 ---
 
-## 注意事项
+## Notes
 
-1. **保持一致性**：同一术语在所有文档中的翻译必须一致
-2. **尊重原文**：准确传达原文含义，不随意增删内容
-3. **本地化表达**：使用目标语言的自然表达方式
-4. **技术准确性**：技术术语、代码示例保持准确
-5. **格式规范**：保持 Markdown 格式的正确性
-6. **链接维护**：确保所有链接在翻译后仍然有效
+1. **Maintain Consistency**: Same term must be translated consistently across all documents
+2. **Respect Original**: Accurately convey original meaning without arbitrarily adding or removing content
+3. **Localized Expression**: Use natural expression methods of the target language
+4. **Technical Accuracy**: Maintain accuracy of technical terminology and code examples
+5. **Format Standards**: Maintain correctness of Markdown formatting
+6. **Link Maintenance**: Ensure all links remain valid after translation

@@ -1,350 +1,350 @@
 ---
 name: doc-writer
-description: 作为项目的专业技术文档撰写者和编辑，产出准确、清晰且一致的文档。当用户要求撰写、编辑、审阅、更新技术文档，或提及 API 文档、README、贡献指南、用户指南时使用本技能。确保内容严格遵循文档标准，准确反映当前代码库。
+description: As the project's professional technical document writer and editor, produce accurate, clear, and consistent documentation. Use this skill when users request writing, editing, reviewing, or updating technical documentation, or mention API documentation, README, contribution guidelines, or user guides. Ensure content strictly follows documentation standards and accurately reflects the current codebase.
 license: MIT
 metadata:
   version: "1.0.0"
 ---
 
-# 技术文档撰写者技能
+# Technical Document Writer Skill
 
-本技能提供专业技术文档撰写、编辑和审阅能力，确保产出的文档准确、清晰且一致。
+This skill provides professional technical document writing, editing, and reviewing capabilities, ensuring produced documents are accurate, clear, and consistent.
 
-## 触发条件
+## Trigger Conditions
 
-当检测到以下情况时，主动激活此技能：
+Activate this skill proactively when the following situations are detected:
 
-- 用户提及撰写或编辑文档："写文档"、"更新文档"、"编辑文档"
-- 用户提及特定文档类型："API 文档"、"README"、"贡献指南"、"用户指南"、"开发文档"
-- 用户要求审阅或检查文档："审阅文档"、"检查文档"、"文档有问题"
-- 用户要求修复或改进现有文档
+- Users mention writing or editing documents: "write documentation", "update documentation", "edit documentation"
+- Users mention specific document types: "API documentation", "README", "contribution guidelines", "user guide", "development documentation"
+- Users request reviewing or checking documents: "review documentation", "check documentation", "documentation has issues"
+- Users request fixing or improving existing documents
 
 ---
 
-## 第一阶段：文档标准
+## Phase 1: Documentation Standards
 
-在撰写、编辑和审阅时遵循这些原则与标准。
+Follow these principles and standards when writing, editing, and reviewing.
 
-### 语气与口吻
+### Tone and Voice
 
-采用兼顾专业性与友好、对话式帮助的语气。
+Use a tone that balances professionalism with friendly, conversational help.
 
-- **视角与时态**：以"您"称呼读者。使用主动语态和现在时（例如"API 返回..."）。
-- **语气**：专业、友好且直接。
-- **清晰度**：使用简单词汇。避免术语、俚语和营销宣传用语。
-- **文档语言**：检查项目是否使用如 `vitepress/jekyll/hugo/hexo`等，从配置中获取文档的默认语言，如不存在，则根据已有文档内容判断文档语言。
-- **要求**：明确区分要求（"必须"）与建议（"我们推荐"）。避免使用"应当"。
-- **措辞选择**：避免使用"请"及拟人化表达（例如"服务器认为"）。使用缩写形式（如"不要"、"它是"）。
+- **Perspective and Tense**: Address the reader as "you". Use active voice and present tense (e.g., "the API returns...").
+- **Tone**: Professional, friendly, and direct.
+- **Clarity**: Use simple vocabulary. Avoid jargon, slang, and marketing language.
+- **Document Language**: Check if the project uses tools like `vitepress/jekyll/hugo/hexo`, get the default language from configuration, or determine document language based on existing document content if not present.
+- **Requirements**: Clearly distinguish requirements ("must") from recommendations ("we recommend"). Avoid using "should".
+- **Word Choice**: Avoid using "please" and personification (e.g., "the server thinks"). Use contractions (e.g., "don't", "it's").
 
-### 语言与语法
+### Language and Grammar
 
-精确书写，确保指令明确无误。
+Write precisely to ensure instructions are clear and unambiguous.
 
-- **缩写**：避免拉丁语缩写；使用"例如"（而非"e.g."）和"即"（而非"i.e."）。
-- **标点符号**：使用序列逗号。对于中文，应该使用 `“”`，而非 `""`。
-- **日期**：使用明确格式（例如"2026年1月22日"）。
-- **简洁性**：使用"让你"而非"允许你"。选用精确、具体的动词。
-- **示例**：示例中使用有意义的名称；避免使用"foo"或"bar"等占位符。
+- **Abbreviations**: Avoid Latin abbreviations; use "for example" (not "e.g.") and "that is" (not "i.e.").
+- **Punctuation**: Use serial commas. For Chinese, use `""` instead of `""`.
+- **Dates**: Use clear formats (e.g., "January 22, 2026").
+- **Conciseness**: Use "lets you" instead of "allows you to". Choose precise, specific verbs.
+- **Examples**: Use meaningful names in examples; avoid meaningless placeholders like "foo" or "bar".
 
-### 格式与语法
+### Format and Syntax
 
-应用一致的格式，使文档在视觉上条理清晰、易于查阅。
+Apply consistent formatting to make documents visually organized and easy to reference.
 
-- **概述段落**：每个标题后必须至少有一个介绍性概述段落，然后才能出现列表或子标题。
-- **文本换行**：在100个字符处换行（长链接或表格除外）。
-- **大小写**：标题、名称和加粗文本使用句子大小写。
-- **命名**：始终将项目称为如 `Project`（切勿使用 `the Project`）。（即不得使用 `the xxx`）
-- **列表**：顺序步骤使用编号列表，其他情况使用项目符号列表。保持列表项结构平行。
-- **界面与代码**：界面元素使用 **粗体**，文件名、代码片段、命令和 API 元素使用 `code font`。讨论交互时聚焦于任务本身。
-- **链接**：使用描述性锚文本；避免使用"点击此处"。确保链接脱离上下文后仍具意义。
-- **无障碍访问**：正确使用语义化 HTML 元素（标题、列表、表格）。
-- **媒体文件**：使用小写字母加连字符的文件名。为所有图片提供描述性替代文本。
+- **Overview Paragraphs**: Each heading must be followed by at least one introductory overview paragraph before lists or subheadings appear.
+- **Text Wrapping**: Break at 100 characters (except for long links or tables).
+- **Capitalization**: Use sentence case for headings, names, and bold text.
+- **Naming**: Always refer to the project as `Project` (never use `the Project`). (i.e., do not use `the xxx`)
+- **Lists**: Use numbered lists for sequential steps, bullet lists otherwise. Keep list item structures parallel.
+- **Interface and Code**: Use **bold** for interface elements, `code font` for filenames, code snippets, commands, and API elements. Focus on tasks when discussing interactions.
+- **Links**: Use descriptive anchor text; avoid "click here". Ensure links make sense out of context.
+- **Accessibility**: Use semantic HTML elements correctly (headings, lists, tables).
+- **Media Files**: Use lowercase letters with hyphens for filenames. Provide descriptive alt text for all images.
 
-### 结构
+### Structure
 
-- **要点概述**：开篇先简要介绍文档内容概览。
-- **实验性功能**：若某功能明确标注为实验性，请在介绍段落之后立即添加以下说明：
+- **Key Points Overview**: Start with a brief introduction to the document content overview.
+- **Experimental Features**: If a feature is explicitly marked as experimental, add the following note immediately after the introduction paragraph:
 
   > [!NOTE]
   > This is a preview feature currently under active development.
 
-- **标题**：使用层级式标题来引导用户浏览路径。
-- **流程**：
-  - 用完整的句子介绍步骤列表。
-  - 每个步骤都以祈使动词开头。
-  - 对顺序步骤进行编号；非顺序列表使用项目符号。
-  - 将条件置于操作说明之前（例如："在设置页面，点击..."）。
-  - 为操作发生的位置提供清晰的上下文。
-  - 明确标注可选步骤（例如："可选：..."）。
-- **元素**：使用项目符号列表、表格、注释（`> [!NOTE]`）和警告（`> [!WARNING]`）。
-- **后续步骤**：如适用，以"后续步骤"部分作为结尾。
+- **Headings**: Use hierarchical headings to guide users through the navigation path.
+- **Processes**:
+  - Introduce step lists with complete sentences.
+  - Start each step with an imperative verb.
+  - Number sequential steps; use bullets for non-sequential lists.
+  - Place conditions before instructions (e.g., "On the settings page, click...").
+  - Provide clear context for where actions occur.
+  - Clearly mark optional steps (e.g., "Optional:...").
+- **Elements**: Use bullet lists, tables, notes (`> [!NOTE]`), and warnings (`> [!WARNING]`).
+- **Next Steps**: End with a "Next Steps" section if applicable.
 
 ---
 
-## 第二阶段：准备工作
+## Phase 2: Preparation Work
 
-在修改任何文档前，需全面调查请求内容及其相关背景。
+Before modifying any documents, comprehensively investigate the request and related context.
 
-### 明确需求
+### Clarify Requirements
 
-理解核心请求。区分编写新内容与编辑现有内容。若请求存在歧义（例如"修复文档"），应要求进一步澄清。
+Understand the core request. Distinguish between writing new content and editing existing content. If the request is ambiguous (e.g., "fix documentation"), ask for further clarification.
 
-### 调查核实
+### Investigate and Verify
 
-检查相关代码（主要在 `src/` 目录中，如果为 monorepo 项目，需检查 `packages/` 目录，或查找 packages 所在目录）以确保准确性。
+Check relevant code (mainly in `src/` directory, for monorepo projects check `packages/` directory, or find the packages directory) to ensure accuracy.
 
-### 审计核对
+### Audit and Review
 
-阅读 `docs/` 目录中相关文件的最新版本。
+Read the latest versions of relevant files in the `docs/` directory.
 
-### 连接
+### Connect
 
-若需改变行为，请识别所有引用页面。检查相关文档配置文件是否需要更新。
+If behavior changes are needed, identify all referenced pages. Check if related documentation configuration files need updates.
 
-### 计划
+### Plan
 
-在进行更改之前，制定一个分步计划。
-
----
-
-## 第三阶段：执行
-
-使用合适的文件系统工具，通过更新现有文件或创建新文件来实施计划。
-
-### 编辑现有文档
-
-当被要求审查或更新现有文档时，请遵循以下额外步骤。
-
-- **缺失内容**：识别文档不完整或与现有代码不符的部分。
-- **结构**：在现有页面添加新章节时，应用"结构"规则（如 BLUF 原则、标题格式等）。
-- **标题**：若修改标题，必须检查指向该标题的链接并同步更新。
-- **语气**：确保采用主动且富有感染力的语气。多使用"您"和缩写形式。
-- **清晰度**：修正拗口的措辞、拼写和语法。重新组织句子，使其更易于用户理解。
-- **一致性**：检查所有编辑文档中的术语和风格是否保持一致。
+Before making changes, create a step-by-step plan.
 
 ---
 
-## 第四阶段：验证与定稿
+## Phase 3: Execution
 
-执行最终质量检查，确保所有更改格式正确且所有链接功能正常。
+Use appropriate file system tools to implement the plan by updating existing files or creating new files.
 
-### 准确性
+### Editing Existing Documents
 
-确保内容准确反映实现方式与技术行为。
+When asked to review or update existing documents, follow these additional steps.
 
-### 自我审查
-
-重新阅读修改内容，检查格式、正确性与流畅度。
-
-### 链接检查
-
-验证所有新增及现有链接，包括指向修改页面或从修改页面引出的链接。若更改了标题，请确保指向该标题的链接已相应更新。
-
-### 格式检查
-
-所有修改完成后，执行 `pnpm lint` 检查以确保项目格式统一，并修复检查错误。
+- **Missing Content**: Identify parts where documentation is incomplete or inconsistent with existing code.
+- **Structure**: When adding new sections to existing pages, apply "Structure" rules (e.g., BLUF principle, heading format, etc.).
+- **Headings**: If modifying headings, must check links pointing to that heading and update them synchronously.
+- **Tone**: Ensure active and engaging tone. Use "you" and contractions frequently.
+- **Clarity**: Fix awkward phrasing, spelling, and grammar. Reorganize sentences to make them easier for users to understand.
+- **Consistency**: Check that terminology and style are consistent across all edited documents.
 
 ---
 
-## 文档类型指南
+## Phase 4: Verification and Finalization
 
-### API 文档
+Perform final quality checks to ensure all changes are properly formatted and all links function properly.
 
-API 文档应包含以下要素：
+### Accuracy
 
-1. **概述**：简要描述 API 的用途和功能
-2. **认证方式**：说明如何进行身份验证
-3. **端点说明**：每个端点包含：
-   - HTTP 方法和路径
-   - 请求参数（路径参数、查询参数、请求体）
-   - 响应格式和状态码
-   - 示例请求和响应
-4. **错误处理**：常见错误码和错误信息
-5. **速率限制**：如有适用，说明限制规则
+Ensure content accurately reflects implementation and technical behavior.
 
-**示例格式**：
+### Self-Review
+
+Re-read modified content to check format, correctness, and flow.
+
+### Link Check
+
+Verify all new and existing links, including links pointing to modified pages or from modified pages. If headings were changed, ensure links pointing to that heading have been updated accordingly.
+
+### Format Check
+
+After all modifications are complete, run `pnpm lint` to check for consistent project formatting and fix any check errors.
+
+---
+
+## Document Type Guidelines
+
+### API Documentation
+
+API documentation should include the following elements:
+
+1. **Overview**: Brief description of API purpose and functionality
+2. **Authentication**: Explain how to authenticate
+3. **Endpoint Description**: Each endpoint includes:
+   - HTTP method and path
+   - Request parameters (path parameters, query parameters, request body)
+   - Response format and status codes
+   - Example requests and responses
+4. **Error Handling**: Common error codes and error messages
+5. **Rate Limiting**: Explain limit rules if applicable
+
+**Example Format**:
 
 ````markdown
-## 获取用户信息
+## Get User Information
 
-获取指定用户的详细信息。
+Get detailed information for a specified user.
 
-### 请求
+### Request
 
 `GET /api/v1/users/{user_id}`
 
-### 路径参数
+### Path Parameters
 
-| 参数 | 类型 | 描述 |
-|------|------|------|
-| `user_id` | string | 用户唯一标识符 |
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `user_id` | string | User unique identifier |
 
-### 响应
+### Response
 
 ```json
 {
   "id": "user_123",
-  "name": "张三",
-  "email": "zhangsan@example.com"
+  "name": "John Doe",
+  "email": "johndoe@example.com"
 }
 ```
 
-### 状态码
+### Status Codes
 
-| 状态码 | 描述 |
-|--------|------|
-| 200 | 成功返回用户信息 |
-| 404 | 用户不存在 |
+| Status Code | Description |
+|-------------|-------------|
+| 200 | Successfully returned user information |
+| 404 | User not found |
 ````
 
-### README 文档
+### README Documentation
 
-README 文档应包含以下要素：
+README documentation should include the following elements:
 
-1. **项目名称和简介**：一句话描述项目
-2. **功能特性**：列出主要功能
-3. **快速开始**：安装和基本使用
-4. **详细用法**：更详细的使用说明
-5. **配置选项**：可配置的参数
-6. **贡献指南**：如何参与项目
-7. **许可证**：开源许可证
+1. **Project Name and Introduction**: One-sentence project description
+2. **Features**: List main features
+3. **Quick Start**: Installation and basic usage
+4. **Detailed Usage**: More detailed usage instructions
+5. **Configuration Options**: Configurable parameters
+6. **Contributing**: How to participate in the project
+7. **License**: Open source license
 
-### 贡献指南
+### Contributing Guidelines
 
-贡献指南应包含以下要素：
+Contributing guidelines should include the following elements:
 
-1. **行为准则**：社区行为规范
-2. **如何贡献**：贡献流程
-3. **开发环境设置**：本地开发配置
-4. **代码规范**：编码风格和标准
-5. **提交规范**：Git 提交信息格式
-6. **Pull Request 流程**：PR 提交和审核流程
+1. **Code of Conduct**: Community behavior standards
+2. **How to Contribute**: Contribution process
+3. **Development Environment Setup**: Local development configuration
+4. **Code Standards**: Coding style and standards
+5. **Commit Standards**: Git commit message format
+6. **Pull Request Process**: PR submission and review process
 
-### 用户指南
+### User Guide
 
-用户指南应包含以下要素：
+User guide should include the following elements:
 
-1. **概述**：产品/功能简介
-2. **前置条件**：使用前需要准备的内容
-3. **快速入门**：基本使用流程
-4. **详细功能**：各功能的详细说明
-5. **常见问题**：FAQ
-6. **故障排除**：问题诊断和解决
-
----
-
-## 质量检查清单
-
-在完成文档撰写或编辑后，使用以下清单进行自检：
-
-### 内容质量
-
-- [ ] 信息是否准确完整？
-- [ ] 是否与当前代码库一致？
-- [ ] 是否有遗漏的重要内容？
-- [ ] 示例是否可运行且有意义？
-
-### 语言质量
-
-- [ ] 语言是否清晰易懂？
-- [ ] 是否有歧义或模糊表述？
-- [ ] 专业术语是否使用得当？
-- [ ] 是否遵循了语气与口吻规范？
-
-### 格式质量
-
-- [ ] 标题层级是否正确？
-- [ ] 列表格式是否一致？
-- [ ] 代码块是否正确标注语言？
-- [ ] 链接是否有效且描述清晰？
-
-### 结构质量
-
-- [ ] 是否有概述段落？
-- [ ] 章节安排是否合理？
-- [ ] 是否有重复或冗余内容？
-- [ ] 逻辑流程是否顺畅？
+1. **Overview**: Product/feature introduction
+2. **Prerequisites**: What needs to be prepared before use
+3. **Quick Start**: Basic usage flow
+4. **Detailed Features**: Detailed explanation of each feature
+5. **FAQ**: Frequently asked questions
+6. **Troubleshooting**: Problem diagnosis and resolution
 
 ---
 
-## 常见问题处理
+## Quality Checklist
 
-### 问题1：文档与代码不一致
+After completing document writing or editing, use the following checklist for self-check:
 
-1. 首先确认代码的实际行为
-2. 更新文档以反映代码行为
-3. 如果代码行为本身有问题，应先报告问题
+### Content Quality
 
-### 问题2：术语不一致
+- [ ] Is the information accurate and complete?
+- [ ] Is it consistent with the current codebase?
+- [ ] Is there any missing important content?
+- [ ] Are examples runnable and meaningful?
 
-1. 检查项目中是否有术语表
-2. 参考现有文档中的术语使用
-3. 保持同一文档内术语一致
+### Language Quality
 
-### 问题3：链接失效
+- [ ] Is the language clear and easy to understand?
+- [ ] Are there ambiguities or vague expressions?
+- [ ] Are technical terms used appropriately?
+- [ ] Does it follow tone and voice standards?
 
-1. 检查链接目标是否存在
-2. 更新链接路径
-3. 如果目标已删除，考虑移除链接或添加替代说明
+### Format Quality
 
-### 问题4：格式不统一
+- [ ] Are heading levels correct?
+- [ ] Is list formatting consistent?
+- [ ] Are code blocks properly language-tagged?
+- [ ] Are links valid and clearly described?
 
-1. 参考 `CONTRIBUTING.md` 中的格式规范
-2. 运行 `pnpm lint` 检查格式问题
-3. 修复所有格式错误
+### Structure Quality
 
----
-
-## 工作流程示例
-
-### 示例1：撰写新文档
-
-```
-用户：帮我写一份 API 文档
-
-Agent：
-1. 确认需求：询问 API 的类型、端点数量、目标读者
-2. 调查代码：检查 API 实现代码，了解参数和返回值
-3. 制定计划：确定文档结构和章节
-4. 撰写文档：按照 API 文档模板撰写
-5. 质量检查：使用检查清单验证
-6. 格式检查：运行 pnpm lint
-```
-
-### 示例2：编辑现有文档
-
-```
-用户：更新 README 中的安装说明
-
-Agent：
-1. 确认需求：了解需要更新的具体内容
-2. 调查代码：检查 package.json 和实际安装流程
-3. 审计文档：阅读现有 README 内容
-4. 编辑文档：更新安装说明部分
-5. 链接检查：验证相关链接是否有效
-6. 格式检查：运行 pnpm lint
-```
-
-### 示例3：审阅文档
-
-```
-用户：审阅 docs/getting-started.md
-
-Agent：
-1. 阅读文档：完整阅读文档内容
-2. 检查准确性：对比代码实现验证内容
-3. 检查语言：验证是否符合语气与口吻规范
-4. 检查格式：验证格式规范
-5. 检查结构：验证结构是否合理
-6. 提供反馈：列出发现的问题和改进建议
-```
+- [ ] Is there an overview paragraph?
+- [ ] Is chapter arrangement reasonable?
+- [ ] Is there duplicate or redundant content?
+- [ ] Is the logical flow smooth?
 
 ---
 
-## 注意事项
+## Common Problem Handling
 
-1. **准确性优先**：文档必须准确反映代码行为
-2. **读者导向**：始终考虑目标读者的需求和背景
-3. **一致性**：保持术语、格式、风格一致
-4. **简洁性**：避免冗余，使用简洁明了的语言
-5. **可维护性**：文档应易于更新和维护
+### Problem 1: Documentation Inconsistent with Code
+
+1. First confirm actual code behavior
+2. Update documentation to reflect code behavior
+3. If code behavior itself has issues, report the problem first
+
+### Problem 2: Inconsistent Terminology
+
+1. Check if there is a terminology table in the project
+2. Reference terminology usage in existing documents
+3. Maintain consistent terminology within the same document
+
+### Problem 3: Broken Links
+
+1. Check if link target exists
+2. Update link path
+3. If target has been deleted, consider removing the link or adding alternative explanation
+
+### Problem 4: Inconsistent Formatting
+
+1. Reference format specifications in `CONTRIBUTING.md`
+2. Run `pnpm lint` to check format issues
+3. Fix all format errors
+
+---
+
+## Workflow Examples
+
+### Example 1: Writing New Documentation
+
+```
+User: Help me write API documentation
+
+Agent:
+1. Confirm requirements: Ask about API type, number of endpoints, target readers
+2. Investigate code: Check API implementation code, understand parameters and return values
+3. Create plan: Determine document structure and chapters
+4. Write documentation: Follow API documentation template
+5. Quality check: Verify using checklist
+6. Format check: Run pnpm lint
+```
+
+### Example 2: Editing Existing Documentation
+
+```
+User: Update installation instructions in README
+
+Agent:
+1. Confirm requirements: Understand specific content to update
+2. Investigate code: Check package.json and actual installation process
+3. Audit documentation: Read existing README content
+4. Edit documentation: Update installation instructions section
+5. Link check: Verify related links are valid
+6. Format check: Run pnpm lint
+```
+
+### Example 3: Reviewing Documentation
+
+```
+User: Review docs/getting-started.md
+
+Agent:
+1. Read documentation: Read document content completely
+2. Check accuracy: Verify content against code implementation
+3. Check language: Verify compliance with tone and voice standards
+4. Check format: Verify format standards
+5. Check structure: Verify structure is reasonable
+6. Provide feedback: List discovered issues and improvement suggestions
+```
+
+---
+
+## Notes
+
+1. **Accuracy First**: Documentation must accurately reflect code behavior
+2. **Reader-Oriented**: Always consider target readers' needs and background
+3. **Consistency**: Maintain consistent terminology, format, and style
+4. **Conciseness**: Avoid redundancy, use simple and clear language
+5. **Maintainability**: Documentation should be easy to update and maintain

@@ -1,61 +1,61 @@
 ---
 name: code-commentator
-description: 代码注释补充与规范化专家，自动识别代码文件类型，为函数、类、方法、属性等代码元素添加专业双语注释。当用户提及"添加注释"、"补充注释"、"规范化注释"、"代码注释"、"annotate code"、"add comments"或需要为代码添加文档注释时使用本技能。
+description: Expert in code annotation supplementation and standardization, automatically identifies code file types and adds professional bilingual comments for functions, classes, methods, properties, and other code elements. Use this skill when users mention "add comments", "supplement comments", "standardize comments", "code comments", "annotate code", "add comments", or need to add documentation comments to code.
 license: MIT
 metadata:
   version: "1.0.0"
 ---
 
-# 代码注释补充与规范化技能
+# Code Annotation Supplementation and Standardization Skill
 
-本技能提供代码注释的系统性补充与规范化处理能力，自动识别代码文件类型，应用相应的注释规范，确保生成的注释准确、完整且符合双语要求。
+This skill provides systematic code annotation supplementation and standardization capabilities, automatically identifying code file types, applying corresponding annotation standards, and ensuring generated comments are accurate, complete, and meet bilingual requirements.
 
-## 触发条件
+## Trigger Conditions
 
-当检测到以下情况时，主动激活此技能：
+Activate this skill proactively when the following situations are detected:
 
-- 用户提及添加或补充注释："添加注释"、"补充注释"、"增加注释"
-- 用户提及规范化注释："规范化注释"、"统一注释风格"、"注释规范"
-- 用户提及代码注释需求："给代码加注释"、"代码缺少注释"、"注释不完整"
-- 用户提及特定注释类型："函数注释"、"类注释"、"JSDoc"、"docstring"
-- 英文触发词："add comments"、"annotate code"、"code documentation"、"JSDoc"
-
----
-
-## 核心原则
-
-### 绝对禁止事项
-
-**严禁修改任何代码内容**。本技能只能添加或修改注释，不得：
-- 修改代码逻辑
-- 修改变量名、函数名、类名等标识符
-- 修改代码结构（如添加、删除、重排代码行）
-- 修改代码格式（如缩进、换行、空格）
-
-唯一允许的操作是为代码添加注释或修改现有注释。
-
-### 双语注释要求
-
-所有注释必须同时包含中英文双语说明。
+- Users mention adding or supplementing comments: "add comments", "supplement comments", "increase comments"
+- Users mention standardizing comments: "standardize comments", "unify comment style", "comment standards"
+- Users mention code annotation needs: "add comments to code", "code lacks comments", "incomplete comments"
+- Users mention specific annotation types: "function comments", "class comments", "JSDoc", "docstring"
+- English trigger words: "add comments", "annotate code", "code documentation", "JSDoc"
 
 ---
 
-## 第一阶段：项目与文件分析
+## Core Principles
 
-在执行注释补充前，需全面分析项目和目标文件。
+### Absolute Prohibitions
 
-### 1.1 识别编程语言
+**Strictly forbidden to modify any code content**. This skill can only add or modify comments, and must not:
+- Modify code logic
+- Modify identifiers such as variable names, function names, class names
+- Modify code structure (such as adding, deleting, rearranging code lines)
+- Modify code formatting (such as indentation, line breaks, spaces)
 
-根据文件扩展名识别编程语言，选择对应的注释风格：
+The only allowed operation is adding comments to code or modifying existing comments.
 
-| 语言 | 文件扩展名 | 多行注释风格 | 单行注释风格 |
-|------|-----------|-------------|-------------|
+### Bilingual Comment Requirements
+
+All comments must contain both Chinese and English bilingual descriptions.
+
+---
+
+## Phase 1: Project and File Analysis
+
+Before executing annotation supplementation, comprehensively analyze the project and target files.
+
+### 1.1 Identify Programming Language
+
+Identify the programming language based on file extension and select the corresponding comment style:
+
+| Language | File Extensions | Multi-line Comment Style | Single-line Comment Style |
+|----------|-----------------|-------------------------|--------------------------|
 | JavaScript/TypeScript | `.js`, `.jsx`, `.ts`, `.tsx`, `.mjs`, `.cjs` | `/** ... */` | `// ...` |
-| Python | `.py` | `""" ... """` 或 `''' ... '''` | `# ...` |
+| Python | `.py` | `""" ... """` or `''' ... '''` | `# ...` |
 | Java | `.java` | `/** ... */` | `// ...` |
 | C/C++ | `.c`, `.cpp`, `.h`, `.hpp` | `/** ... */` | `// ...` |
 | Go | `.go` | `/** ... */` | `// ...` |
-| Rust | `.rs` | `/// ...` (文档注释) | `// ...` |
+| Rust | `.rs` | `/// ...` (doc comments) | `// ...` |
 | PHP | `.php` | `/** ... */` | `// ...` |
 | Ruby | `.rb` | `=begin ... =end` | `# ...` |
 | Swift | `.swift` | `/** ... */` | `// ...` |
@@ -65,62 +65,62 @@ metadata:
 | Lua | `.lua` | `--[[ ... --]]` | `-- ...` |
 | Shell | `.sh`, `.bash` | `: ' ... '` | `# ...` |
 
-### 1.2 分析代码结构
+### 1.2 Analyze Code Structure
 
-解析代码文件，识别需要注释的代码元素。
+Parse code files to identify code elements that need comments.
 
-**注释的核心原则**：注释是为了增强代码可读性，而非为注释而注释。过多的注释反而会影响代码的可读性。如果代码本身足够简单清晰，能够自解释其意图，则不需要添加注释。
+**Core Principle of Comments**: Comments are meant to enhance code readability, not to comment for the sake of commenting. Excessive comments can actually reduce code readability. If the code itself is simple and clear enough to self-explain its intent, no comments are needed.
 
-**必须添加多行注释的元素**：
-- 函数/方法
-- 类/结构体/接口
-- 公共属性/字段
-- 枚举及其成员
-- 类型定义
-- 模块/命名空间
+**Elements that must have multi-line comments**:
+- Functions/methods
+- Classes/structs/interfaces
+- Public properties/fields
+- Enums and their members
+- Type definitions
+- Modules/namespaces
 
-**需要评估是否添加单行注释的元素**：
+**Elements that need evaluation for single-line comments**:
 
-仅在代码逻辑不够直观、无法自解释时才需要添加注释：
+Only add comments when code logic is not intuitive enough or cannot self-explain:
 
-- **复杂的条件分支逻辑**：当条件判断涉及多个变量、复杂运算或业务规则时
-- **复杂的循环结构**：当循环逻辑不直观或有特殊边界条件时
-- **复杂的表达式**：当表达式涉及多步运算或特殊算法时
-- **重要的变量声明**：当变量用途不明显或涉及特殊业务含义时
+- **Complex conditional branch logic**: When condition evaluation involves multiple variables, complex operations, or business rules
+- **Complex loop structures**: When loop logic is not intuitive or has special boundary conditions
+- **Complex expressions**: When expressions involve multi-step operations or special algorithms
+- **Important variable declarations**: When variable purpose is not obvious or involves special business meaning
 
-**不需要添加注释的情况**：
+**Situations where comments are not needed**:
 
-以下情况代码本身已足够清晰，无需添加注释：
+The following situations are clear enough in the code itself and do not need comments:
 
-- 简单的条件判断（如 `if (isvalid)`）
-- 简单的循环（如 `for (const item of items)`）
-- 变量名已清晰表达用途的声明（如 `const userName = user.name`）
-- 标准的 getter/setter 方法
-- 一目了然的赋值语句
+- Simple conditional checks (e.g., `if (isValid)`)
+- Simple loops (e.g., `for (const item of items)`)
+- Variable declarations where names clearly express purpose (e.g., `const userName = user.name`)
+- Standard getter/setter methods
+- Obvious assignment statements
 
-**判断标准**：
+**Judgment Criteria**:
 
-添加注释前，先问自己：
-1. 不看注释，能否快速理解这段代码的意图？
-2. 代码命名是否足够清晰？
-3. 注释是否提供了代码本身无法表达的信息？
+Before adding a comment, ask yourself:
+1. Without looking at the comment, can you quickly understand the intent of this code?
+2. Is the code naming clear enough?
+3. Does the comment provide information that the code itself cannot express?
 
-如果以上问题的答案表明代码已足够清晰，则不需要添加注释。
+If the answers to the above questions indicate the code is clear enough, no comment is needed.
 
-### 1.3 检测现有注释
+### 1.3 Detect Existing Comments
 
-分析代码中已有的注释：
-- 识别已有注释的代码元素
-- 检查现有注释是否符合规范
-- 标记需要补充或修正的注释
+Analyze existing comments in the code:
+- Identify code elements that already have comments
+- Check if existing comments meet standards
+- Mark comments that need supplementation or correction
 
 ---
 
-## 第二阶段：注释格式规范
+## Phase 2: Comment Format Standards
 
-### 2.1 多行注释格式
+### 2.1 Multi-line Comment Formats
 
-#### JavaScript/TypeScript 格式
+#### JavaScript/TypeScript Format
 
 ```typescript
 /**
@@ -143,7 +143,7 @@ function functionName(paramName: string, options?: Options): Result {
 }
 ```
 
-#### Python 格式
+#### Python Format
 
 ```python
 """
@@ -171,7 +171,7 @@ def function_name(param_name: str, options: Optional[Options] = None) -> Result:
     # implementation
 ```
 
-#### Java 格式
+#### Java Format
 
 ```java
 /**
@@ -194,7 +194,7 @@ public Result methodName(String paramName, Options options) {
 }
 ```
 
-#### Go 格式
+#### Go Format
 
 ```go
 // FunctionName English description of the function.
@@ -219,7 +219,7 @@ func FunctionName(paramName string, options *Options) *Result {
 }
 ```
 
-#### Rust 格式
+#### Rust Format
 
 ```rust
 /// English description of the function.
@@ -252,9 +252,9 @@ pub fn function_name(param_name: &str, options: Option<Options>) -> Result<Resul
 }
 ```
 
-### 2.2 单行注释格式
+### 2.2 Single-line Comment Formats
 
-#### 短描述格式
+#### Short Description Format
 
 ```typescript
 // english description / 中文描述
@@ -264,7 +264,7 @@ if (condition) {}
 const variable = value;
 ```
 
-#### 长描述格式
+#### Long Description Format
 
 ```typescript
 // This is a longer english description that explains
@@ -277,7 +277,7 @@ if (complexCondition) {
 }
 ```
 
-#### Python 单行注释
+#### Python Single-line Comments
 
 ```python
 # english description / 中文描述
@@ -295,21 +295,21 @@ for item in items:
 
 ---
 
-## 第三阶段：注释内容规范
+## Phase 3: Comment Content Standards
 
-### 3.1 函数/方法注释要求
+### 3.1 Function/Method Comment Requirements
 
-函数/方法注释必须包含以下内容：
+Function/method comments must include the following:
 
-1. **功能描述**：清晰描述函数的功能和用途
-2. **入参说明**：每个参数的类型和用途
-3. **出参说明**：返回值的类型和含义
-4. **异常说明**：可能抛出的异常及其条件（如有）
-5. **使用示例**：至少一个基本使用示例
+1. **Function Description**: Clearly describe the function's purpose and usage
+2. **Parameter Description**: Type and purpose of each parameter
+3. **Return Description**: Type and meaning of the return value
+4. **Exception Description**: Possible exceptions and their conditions (if any)
+5. **Usage Examples**: At least one basic usage example
 
-#### 参数类型为联合类型时的处理
+#### Handling Union Type Parameters
 
-当参数类型为联合类型时，使用无序列表详细说明每个类型：
+When parameter types are union types, use unordered lists to detail each type:
 
 ```typescript
 /**
@@ -332,9 +332,9 @@ for item in items:
 function process(input: string | Buffer | ReadableStream): Result {}
 ```
 
-#### 支持多种传参方式的函数
+#### Functions Supporting Multiple Parameter Passing Methods
 
-对于支持多种传参类型或传参个数的函数，需提供不同场景的使用示例：
+For functions that support multiple parameter types or parameter counts, provide usage examples for different scenarios:
 
 ```typescript
 /**
@@ -360,13 +360,13 @@ function process(input: string | Buffer | ReadableStream): Result {}
 function createUser(nameOrOptions: string | UserOptions, age?: number): User {}
 ```
 
-### 3.2 类注释要求
+### 3.2 Class Comment Requirements
 
-类注释必须包含以下内容：
+Class comments must include the following:
 
-1. **功能描述**：类的用途和职责
-2. **属性说明**：重要公共属性的说明
-3. **使用示例**：创建和使用类实例的示例
+1. **Function Description**: Purpose and responsibilities of the class
+2. **Property Description**: Description of important public properties
+3. **Usage Examples**: Examples of creating and using class instances
 
 ```typescript
 /**
@@ -403,7 +403,7 @@ class AuthManager {
 }
 ```
 
-### 3.3 属性/字段注释要求
+### 3.3 Property/Field Comment Requirements
 
 ```typescript
 class User {
@@ -430,7 +430,7 @@ class User {
 }
 ```
 
-### 3.4 枚举注释要求
+### 3.4 Enum Comment Requirements
 
 ```typescript
 /**
@@ -469,7 +469,7 @@ enum TaskStatus {
 }
 ```
 
-### 3.5 类型定义注释要求
+### 3.5 Type Definition Comment Requirements
 
 ```typescript
 /**
@@ -503,33 +503,33 @@ interface ApiClientOptions {
 
 ---
 
-## 第四阶段：语气与口吻规范
+## Phase 4: Tone and Voice Standards
 
-### 4.1 语气标准
+### 4.1 Tone Standards
 
-采用专业且友好的对话式帮助语气：
+Use a professional yet friendly, conversational help tone:
 
-- **视角与时态**：以"您"称呼读者。使用主动语态和现在时（例如"函数返回..."）。
-- **语气**：专业、友好且直接。
-- **清晰度**：使用简单词汇。避免术语、俚语和营销宣传用语。
-- **要求**：明确区分要求（"必须"）与建议（"我们推荐"）。避免使用"应当"。
-- **措辞选择**：避免使用"请"及拟人化表达（例如"函数认为"）。使用缩写形式（如"不要"、"它是"）。
+- **Perspective and Tense**: Address the reader as "you". Use active voice and present tense (e.g., "the function returns...").
+- **Tone**: Professional, friendly, and direct.
+- **Clarity**: Use simple vocabulary. Avoid jargon, slang, and marketing language.
+- **Requirements**: Clearly distinguish requirements ("must") from recommendations ("we recommend"). Avoid using "should".
+- **Word Choice**: Avoid using "please" and personification (e.g., "the function thinks"). Use contractions (e.g., "don't", "it's").
 
-### 4.2 语言与语法规范
+### 4.2 Language and Grammar Standards
 
-- **缩写**：避免拉丁语缩写；使用"例如"（而非"e.g."）和"即"（而非"i.e."）。
-- **标点符号**：使用序列逗号。中文内容应使用 `“”` 而非 `""`。
-- **日期**：使用明确格式（例如"2026年1月22日"）。
-- **简洁性**：使用"让你"而非"允许你"。选用精确、具体的动词。
-- **示例**：示例中使用有意义的名称；避免使用"foo"或"bar"等无意义占位符。
+- **Abbreviations**: Avoid Latin abbreviations; use "for example" (not "e.g.") and "that is" (not "i.e.").
+- **Punctuation**: Use serial commas. Chinese content should use `""` instead of `""`.
+- **Dates**: Use clear formats (e.g., "January 22, 2026").
+- **Conciseness**: Use "lets you" instead of "allows you to". Choose precise, specific verbs.
+- **Examples**: Use meaningful names in examples; avoid meaningless placeholders like "foo" or "bar".
 
 ---
 
-## 第五阶段：注释文本格式规范
+## Phase 5: Comment Text Format Standards
 
-### 5.1 换行规则
+### 5.1 Line Break Rules
 
-注释文本应在100个字符左右处换行（长链接或表格等特殊内容除外）：
+Comment text should break at approximately 100 characters (except for special content like long links or tables):
 
 ```typescript
 /**
@@ -540,9 +540,9 @@ interface ApiClientOptions {
  */
 ```
 
-### 5.2 中英文分隔
+### 5.2 Chinese-English Separation
 
-双语注释中，英文描述在前，中文描述在后，中间用空行分隔：
+In bilingual comments, English description comes first, Chinese description follows, separated by a blank line:
 
 ```typescript
 /**
@@ -552,9 +552,9 @@ interface ApiClientOptions {
  */
 ```
 
-### 5.3 参数描述格式
+### 5.3 Parameter Description Format
 
-参数描述使用斜杠分隔中英文：
+Parameter descriptions use slashes to separate Chinese and English:
 
 ```typescript
 @param paramName - English description / 中文描述
@@ -562,142 +562,142 @@ interface ApiClientOptions {
 
 ---
 
-## 第六阶段：执行流程
+## Phase 6: Execution Process
 
-### 6.1 文件扫描流程
+### 6.1 File Scanning Process
 
-1. 接收用户指定的文件或目录
-2. 递归扫描所有代码文件
-3. 按语言类型分组处理
-4. 生成处理计划
+1. Receive user-specified files or directories
+2. Recursively scan all code files
+3. Group by language type for processing
+4. Generate processing plan
 
-### 6.2 单文件处理流程
+### 6.2 Single File Processing Process
 
-1. 读取文件内容
-2. 解析代码结构（AST 或正则匹配）
-3. 识别需要注释的代码元素
-4. 检查现有注释的完整性
-5. 生成符合规范的注释
-6. 将注释插入到正确位置
-7. 写入更新后的文件
+1. Read file content
+2. Parse code structure (AST or regex matching)
+3. Identify code elements that need comments
+4. Check completeness of existing comments
+5. Generate comments that meet standards
+6. Insert comments at correct positions
+7. Write updated file
 
-### 6.3 注释插入规则
+### 6.3 Comment Insertion Rules
 
-- **函数/方法注释**：紧贴在函数声明上方，不留空行
-- **类注释**：紧贴在类声明上方，不留空行
-- **属性注释**：紧贴在属性声明上方，不留空行
-- **单行注释**：放在代码行上方，与代码保持相同缩进
+- **Function/Method Comments**: Immediately above the function declaration, no blank lines
+- **Class Comments**: Immediately above the class declaration, no blank lines
+- **Property Comments**: Immediately above the property declaration, no blank lines
+- **Single-line Comments**: Above the code line, with the same indentation as the code
 
-### 6.4 进度报告
+### 6.4 Progress Reporting
 
-处理过程中实时报告进度：
+Report progress in real-time during processing:
 
 ```markdown
-## 注释处理进度
+## Comment Processing Progress
 
-### 已完成 (3/10)
-- ✅ src/utils/helper.ts (添加了 5 个函数注释)
-- ✅ src/models/user.ts (添加了 2 个类注释, 8 个属性注释)
-- ✅ src/api/client.ts (添加了 3 个函数注释)
+### Completed (3/10)
+- ✅ src/utils/helper.ts (added 5 function comments)
+- ✅ src/models/user.ts (added 2 class comments, 8 property comments)
+- ✅ src/api/client.ts (added 3 function comments)
 
-### 处理中
+### In Progress
 - 🔄 src/services/auth.ts
 
-### 待处理 (6/10)
+### Pending (6/10)
 - ⏳ src/config/index.ts
 - ...
 ```
 
 ---
 
-## 第七阶段：质量验证
+## Phase 7: Quality Verification
 
-### 7.1 注释完整性检查
+### 7.1 Comment Completeness Check
 
-- [ ] 所有公共函数都有注释
-- [ ] 所有公共类都有注释
-- [ ] 所有公共属性都有注释
-- [ ] 所有枚举及其成员都有注释
-- [ ] 所有类型定义都有注释
+- [ ] All public functions have comments
+- [ ] All public classes have comments
+- [ ] All public properties have comments
+- [ ] All enums and their members have comments
+- [ ] All type definitions have comments
 
-### 7.2 注释内容检查
+### 7.2 Comment Content Check
 
-- [ ] 功能描述清晰准确
-- [ ] 参数说明完整
-- [ ] 返回值说明准确
-- [ ] 使用示例可运行
-- [ ] 联合类型参数有详细说明
+- [ ] Function description is clear and accurate
+- [ ] Parameter descriptions are complete
+- [ ] Return value descriptions are accurate
+- [ ] Usage examples are runnable
+- [ ] Union type parameters have detailed explanations
 
-### 7.3 注释格式检查
+### 7.3 Comment Format Check
 
-- [ ] 符合语言特定的注释风格
-- [ ] 双语格式正确
-- [ ] 换行位置合理
-- [ ] 标点符号使用正确
+- [ ] Follows language-specific comment style
+- [ ] Bilingual format is correct
+- [ ] Line break positions are reasonable
+- [ ] Punctuation is used correctly
 
-### 7.4 代码完整性检查
+### 7.4 Code Integrity Check
 
-- [ ] 未修改任何代码逻辑
-- [ ] 未修改任何标识符
-- [ ] 未修改代码结构
-- [ ] 未修改代码格式
-
----
-
-## 工作流程示例
-
-### 示例1：为单个文件添加注释
-
-```
-用户：为 src/utils/helper.ts 添加注释
-
-Agent：
-1. 读取文件内容
-2. 解析代码结构，识别 5 个函数
-3. 检查现有注释（发现 2 个函数缺少注释）
-4. 为缺少注释的函数生成双语注释
-5. 插入注释到正确位置
-6. 写入更新后的文件
-7. 报告：添加了 3 个函数注释，修改了 2 个现有注释
-```
-
-### 示例2：为目录批量添加注释
-
-```
-用户：为 src/ 目录下的所有 TypeScript 文件添加注释
-
-Agent：
-1. 扫描 src/ 目录，找到 15 个 .ts 文件
-2. 按文件大小排序，生成处理计划
-3. 逐个处理文件：
-   - 解析代码结构
-   - 识别需要注释的元素
-   - 生成并插入注释
-4. 实时报告进度
-5. 完成后生成总结报告
-```
-
-### 示例3：规范化现有注释
-
-```
-用户：规范化 src/api/ 目录下文件的注释风格
-
-Agent：
-1. 扫描目录，找到 8 个代码文件
-2. 分析现有注释风格
-3. 识别不符合规范的注释
-4. 按规范修正注释格式
-5. 确保所有注释为双语格式
-6. 报告修改内容
-```
+- [ ] No code logic modified
+- [ ] No identifiers modified
+- [ ] No code structure modified
+- [ ] No code formatting modified
 
 ---
 
-## 注意事项
+## Workflow Examples
 
-1. **只添加注释**：严禁修改任何代码内容，包括逻辑、结构、格式
-2. **保持一致性**：同一文件内注释风格必须一致
-3. **准确性优先**：注释内容必须准确反映代码功能
-4. **避免过度注释**：注释是为了增强可读性，而非为注释而注释。如果代码本身足够清晰，则不需要添加注释
-5. **简洁明了**：避免冗余注释，注释应有实际价值，提供代码本身无法表达的信息
-6. **示例可运行**：所有使用示例必须是可以实际运行的代码
+### Example 1: Adding Comments to a Single File
+
+```
+User: Add comments to src/utils/helper.ts
+
+Agent:
+1. Read file content
+2. Parse code structure, identify 5 functions
+3. Check existing comments (found 2 functions missing comments)
+4. Generate bilingual comments for functions missing comments
+5. Insert comments at correct positions
+6. Write updated file
+7. Report: added 3 function comments, modified 2 existing comments
+```
+
+### Example 2: Batch Adding Comments to a Directory
+
+```
+User: Add comments to all TypeScript files under src/ directory
+
+Agent:
+1. Scan src/ directory, find 15 .ts files
+2. Sort by file size, generate processing plan
+3. Process files one by one:
+   - Parse code structure
+   - Identify elements needing comments
+   - Generate and insert comments
+4. Report progress in real-time
+5. Generate summary report after completion
+```
+
+### Example 3: Standardizing Existing Comments
+
+```
+User: Standardize comment style for files under src/api/ directory
+
+Agent:
+1. Scan directory, find 8 code files
+2. Analyze existing comment styles
+3. Identify comments that don't meet standards
+4. Correct comment formats according to standards
+5. Ensure all comments are in bilingual format
+6. Report modifications
+```
+
+---
+
+## Notes
+
+1. **Only Add Comments**: Strictly forbidden to modify any code content, including logic, structure, formatting
+2. **Maintain Consistency**: Comment style must be consistent within the same file
+3. **Accuracy First**: Comment content must accurately reflect code functionality
+4. **Avoid Over-commenting**: Comments are to enhance readability, not to comment for the sake of commenting. If the code itself is clear enough, no comment is needed
+5. **Concise and Clear**: Avoid redundant comments; comments should have practical value and provide information that the code itself cannot express
+6. **Runnable Examples**: All usage examples must be code that can actually run
